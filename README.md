@@ -1,23 +1,25 @@
-# Automaton Interpreter
+# LBD - Sistema de envio de trabalhos
 
 **Description**:  ...
 
-
-  - Developed in C# .Net Core 3.1
+  - Developed in Java Spring Boot
   - Cross Platform (Windows, Linux, MacOS)
-  - **Status**:  Currently the project only contains code for a deterministic stack automaton.
+  - **Status**:  On Development.
 
 ## Dependencies
 
-  - .Net Core 3.1 [Download1](https://dotnet.microsoft.com/download) [Download2](https://github.com/dotnet/core/blob/master/release-notes/3.1/3.1.8/3.1.402-download.md)
+  - ALGUEM ADICIONA AKI (Ex:.Net Core 3.1 [Download1](https://dotnet.microsoft.com/download) [Download2](https://github.com/dotnet/core/blob/master/release-notes/3.1/3.1.8/3.1.402-download.md))
 
 ## Installation
 
-Download and install .Net Core 3.1 [.Net Core Install instructions](https://github.com/dotnet/core/blob/master/release-notes/3.1/3.1.8/3.1.8-install-instructions.md).
-You can use any IDE you feel confortable editing, but Visual Studio is preferred.
+AKI TBM (Ex: Download and install .Net Core 3.1 [.Net Core Install instructions](https://github.com/dotnet/core/blob/master/release-notes/3.1/3.1.8/3.1.8-install-instructions.md).
+You can use any IDE you feel confortable editing, but Visual Studio is preferred.)
+
 
 ## Configuration
 
+- DA UM GRAU AKI TBM (
+Ex:
 The logging output can be configured setting the environment variable "AUTOMATON_LOG_PRESET" according to the following enum:
 ````csharp
     [Flags]
@@ -73,9 +75,12 @@ Input file example:
   ]
 }
 ````
+)
 
 ## How to test the software
 
+E MAIS AKI: ( 
+EX:
 For compiling the code use the following commands:
 - Linux:
   - option 1:
@@ -104,6 +109,7 @@ For compiling the code use the following commands:
     ````
 
 For custom compilation settings search [.Net Build Instructions](https://docs.microsoft.com/pt-br/dotnet/core/tools/dotnet-build)
+)
 
 ----
 
