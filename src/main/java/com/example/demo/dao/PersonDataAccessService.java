@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository("postgres")
+@Repository("postgresPerson")
 public class PersonDataAccessService implements PersonDAO {
 
     private final JdbcTemplate jdbcTemplate;
