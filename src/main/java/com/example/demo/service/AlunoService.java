@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AlunoService {
@@ -21,4 +22,21 @@ public class AlunoService {
     public List<Aluno> getAllAluno() throws IOException {
         return alunoDAO.getAllAluno();
     }
+
+    public Optional<Aluno> getAlunoByMatricula(int matricula) throws IOException{
+        return alunoDAO.getAlunoByMatricula(matricula);
+    }
+
+    public void deleteAluno(int matricula) throws IOException{
+        alunoDAO.deleteAluno(matricula);
+    }
+
+    public void updateAluno(Aluno aluno) throws IOException{
+        alunoDAO.updateAluno(aluno);
+    }
+
+    public void insertAluno(Aluno aluno) throws IOException{
+        alunoDAO.insertAluno(aluno);
+    }
+
 }

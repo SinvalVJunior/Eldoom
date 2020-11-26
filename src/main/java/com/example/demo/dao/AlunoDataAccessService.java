@@ -22,7 +22,7 @@ public class AlunoDataAccessService implements AlunoDAO{
 
     @Override
     public void insertAluno(Aluno aluno) throws IOException{
-        final String sql = "INSERT INTO aluno ( matricula, nome) VALUES ('"
+        final String sql = "INSERT INTO aluno ( \"Matricula\", \"Nome\") VALUES ('"
                 + aluno.getMatricula() + "', '" + aluno.getNome() + "');";
 
         jdbcTemplate.execute(sql);
@@ -42,7 +42,7 @@ public class AlunoDataAccessService implements AlunoDAO{
 
     @Override
     public Optional<Aluno> getAlunoByMatricula(int matricula)  throws IOException{
-        final String sql = "SELECT matricula, nome FROM aluno WHERE aluno.matricula = '" + matricula + "';";
+        final String sql = "SELECT \"Matricula\", \"Nome\" FROM aluno WHERE aluno.\"Matricula\" = '" + matricula + "';";
         List<Aluno> alunoSelected = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matriculaFound = Integer.parseInt(resultSet.getString("matricula"));
             String nome = resultSet.getString("nome");
@@ -53,13 +53,13 @@ public class AlunoDataAccessService implements AlunoDAO{
 
     @Override
     public void deleteAluno(int matricula)  throws IOException{
-        final String sql = "DELETE FROM aluno WHERE aluno.matricula = '" + matricula + "';";
+        final String sql = "DELETE FROM aluno WHERE aluno.\"Matricula\" = '" + matricula + "';";
         jdbcTemplate.execute(sql);
     }
 
     @Override
     public void updateAluno(Aluno aluno)  throws IOException{
-        final String sql = "UPDATE aluno SET name = '" + aluno.getNome() + "' WHERE aluno.matricula = '" + aluno.getMatricula() + "';";
+        final String sql = "UPDATE aluno SET \"Nome\" = '" + aluno.getNome() + "' WHERE aluno.\"Matricula\" = '" + aluno.getMatricula() + "';";
         jdbcTemplate.execute(sql);
     }
 }
