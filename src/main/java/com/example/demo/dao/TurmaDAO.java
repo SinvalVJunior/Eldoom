@@ -12,10 +12,10 @@ public interface TurmaDAO {
 
     List<Turma> getAllTurma() throws IOException;
 
-    Optional<Turma> getTurmaByCodigo(int codigo) throws IOException;
+    Optional<Turma> getTurmaByCodigo(String codigo) throws IOException;
 
-    void deleteTurma(int codigo) throws IOException;
+    void deleteTurma(String codigo) throws IOException;
 
-    void updateAluno(Turma turma) throws IOException;
+    void updateTurma(Turma turma) throws IOException;
 
 }

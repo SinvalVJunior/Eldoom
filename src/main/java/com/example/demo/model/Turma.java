@@ -8,7 +8,7 @@ public class Turma {
     private final String codigo;
     private final int professorId;
 
-    public Turma(@JsonProperty("codigo") String codigo, @JsonProperty("professorId") long professorId) {
+    public Turma(@JsonProperty("codigo") String codigo, @JsonProperty("professorId") int professorId) {
         this.codigo = codigo;
         this.professorId = professorId;
     }
