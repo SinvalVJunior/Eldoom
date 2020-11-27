@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 @Repository("postgresAluno")
-public class AlunoDataAccessService implements AlunoDAO{
+public class AlunoDataAccessService implements AlunoDAO {
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -21,7 +21,7 @@ public class AlunoDataAccessService implements AlunoDAO{
     }
 
     @Override
-    public void insertAluno(Aluno aluno) throws IOException{
+    public void insertAluno(Aluno aluno) throws IOException {
         final String sql = "INSERT INTO aluno ( \"Matricula\", \"Nome\") VALUES ('"
                 + aluno.getMatricula() + "', '" + aluno.getNome() + "');";
 
@@ -29,7 +29,7 @@ public class AlunoDataAccessService implements AlunoDAO{
     }
 
     @Override
-    public List<Aluno> getAllAluno()  throws IOException{
+    public List<Aluno> getAllAluno() throws IOException {
         final String sql = "SELECT \"Matricula\", \"Nome\" FROM aluno;";
         List<Aluno> alunoList = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matricula = Integer.parseInt(resultSet.getString("matricula"));
@@ -38,10 +38,11 @@ public class AlunoDataAccessService implements AlunoDAO{
             return new Aluno(matricula, nome);
         });
 
-        return alunoList;    }
+        return alunoList;
+    }
 
     @Override
-    public Optional<Aluno> getAlunoByMatricula(int matricula)  throws IOException{
+    public Optional<Aluno> getAlunoByMatricula(int matricula) throws IOException {
         final String sql = "SELECT \"Matricula\", \"Nome\" FROM aluno WHERE aluno.\"Matricula\" = '" + matricula + "';";
         List<Aluno> alunoSelected = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matriculaFound = Integer.parseInt(resultSet.getString("matricula"));
@@ -49,16 +50,17 @@ public class AlunoDataAccessService implements AlunoDAO{
             return new Aluno(matriculaFound, nome);
         });
 
-        return alunoSelected.stream().findFirst();    }
+        return alunoSelected.stream().findFirst();
+    }
 
     @Override
-    public void deleteAluno(int matricula)  throws IOException{
+    public void deleteAluno(int matricula) throws IOException {
         final String sql = "DELETE FROM aluno WHERE aluno.\"Matricula\" = '" + matricula + "';";
         jdbcTemplate.execute(sql);
     }
 
     @Override
-    public void updateAluno(Aluno aluno)  throws IOException{
+    public void updateAluno(Aluno aluno) throws IOException {
         final String sql = "UPDATE aluno SET \"Nome\" = '" + aluno.getNome() + "' WHERE aluno.\"Matricula\" = '" + aluno.getMatricula() + "';";
         jdbcTemplate.execute(sql);
     }
