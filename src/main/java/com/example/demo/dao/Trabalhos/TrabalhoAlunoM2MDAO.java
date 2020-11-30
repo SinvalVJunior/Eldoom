@@ -1,12 +1,10 @@
-package com.example.demo.dao;
-
-import com.example.demo.model.AlunoTurma;
-import com.example.demo.model.AlunoTurmaResponse;
-import com.example.demo.model.TrabalhoAlunoM2M;
-import com.example.demo.model.TrabalhoAlunoM2MResponse;
+package com.example.demo.dao.Trabalhos;
 
 import java.io.IOException;
 import java.util.List;
+
+import com.example.demo.model.TrabalhoAlunoM2M;
+import com.example.demo.model.TrabalhoAlunoM2MResponse;
 
 public interface TrabalhoAlunoM2MDAO {
 

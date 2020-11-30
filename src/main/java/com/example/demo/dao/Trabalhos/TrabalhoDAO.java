@@ -1,11 +1,8 @@
-package com.example.demo.dao;
-
-import com.example.demo.model.Trabalho;
-import com.example.demo.model.Turma;
+package com.example.demo.dao.Trabalhos;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+
+import com.example.demo.model.Trabalho;
 
 public interface TrabalhoDAO {
     void insertTrabalho(Trabalho trabalho) throws IOException;

@@ -1,14 +1,15 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.AlunoTurmaDAO;
+import java.io.IOException;
+import java.util.List;
+
+import com.example.demo.dao.Turma.AlunoTurmaDAO;
 import com.example.demo.model.AlunoTurma;
 import com.example.demo.model.AlunoTurmaRequest;
 import com.example.demo.model.AlunoTurmaResponse;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
-import java.util.List;
 
 @Service
 public class AlunoTurmaService {

@@ -1,8 +1,6 @@
-package com.example.demo.dao;
+package com.example.demo.dao.Turma;
 
-import com.example.demo.model.Aluno;
 import com.example.demo.model.Turma;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;

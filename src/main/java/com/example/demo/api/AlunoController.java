@@ -1,7 +1,6 @@
 package com.example.demo.api;
 
 import com.example.demo.model.Aluno;
-import com.example.demo.model.Person;
 import com.example.demo.service.AlunoService;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
