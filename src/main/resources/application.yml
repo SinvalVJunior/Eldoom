@@ -1,6 +1,7 @@
 app:
   datasourse:
     jdbc-url: jdbc:postgresql://fudidoseamigos.servegame.com:5432/bd_idk
+    schema: Eldoom
     username: BDAdmin
     password: admin
     pool-size: 30
