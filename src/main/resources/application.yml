@@ -4,4 +4,7 @@ app:
     schema: Eldoom
     username: BDAdmin
     password: admin
-    pool-size: 30
+    pool-size: 10
+    connectionTimeout: 60000 
+    idleTimeout: 300000 
+    maxLifetime: 1800000 
