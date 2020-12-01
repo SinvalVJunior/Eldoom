@@ -1,13 +1,14 @@
-package com.example.demo.dao;
-
-import com.example.demo.model.Aluno;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
+package com.example.demo.dao.Aluno;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import com.example.demo.model.Aluno;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
 
 
 @Repository("postgresAluno")
@@ -22,7 +23,7 @@ public class AlunoDataAccessService implements AlunoDAO {
 
     @Override
     public void insertAluno(Aluno aluno) throws IOException {
-        final String sql = "INSERT INTO aluno ( \"Matricula\", \"Nome\") VALUES ('"
+        final String sql = "INSERT INTO aluno (Matricula, Nome) VALUES ('"
                 + aluno.getMatricula() + "', '" + aluno.getNome() + "');";
 
         jdbcTemplate.execute(sql);
@@ -30,7 +31,7 @@ public class AlunoDataAccessService implements AlunoDAO {
 
     @Override
     public List<Aluno> getAllAluno() throws IOException {
-        final String sql = "SELECT \"Matricula\", \"Nome\" FROM aluno;";
+        final String sql = "SELECT Matricula, Nome FROM aluno;";
         List<Aluno> alunoList = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matricula = Integer.parseInt(resultSet.getString("matricula"));
             String nome = resultSet.getString("nome");
@@ -43,7 +44,7 @@ public class AlunoDataAccessService implements AlunoDAO {
 
     @Override
     public Optional<Aluno> getAlunoByMatricula(int matricula) throws IOException {
-        final String sql = "SELECT \"Matricula\", \"Nome\" FROM aluno WHERE aluno.\"Matricula\" = '" + matricula + "';";
+        final String sql = "SELECT Matricula, Nome FROM aluno WHERE aluno.Matricula = '" + matricula + "';";
         List<Aluno> alunoSelected = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matriculaFound = Integer.parseInt(resultSet.getString("matricula"));
             String nome = resultSet.getString("nome");
@@ -55,13 +56,13 @@ public class AlunoDataAccessService implements AlunoDAO {
 
     @Override
     public void deleteAluno(int matricula) throws IOException {
-        final String sql = "DELETE FROM aluno WHERE aluno.\"Matricula\" = '" + matricula + "';";
+        final String sql = "DELETE FROM aluno WHERE aluno.Matricula = '" + matricula + "';";
         jdbcTemplate.execute(sql);
     }
 
     @Override
     public void updateAluno(Aluno aluno) throws IOException {
-        final String sql = "UPDATE aluno SET \"Nome\" = '" + aluno.getNome() + "' WHERE aluno.\"Matricula\" = '" + aluno.getMatricula() + "';";
+        final String sql = "UPDATE aluno SET Nome = '" + aluno.getNome() + "' WHERE aluno.Matricula = '" + aluno.getMatricula() + "';";
         jdbcTemplate.execute(sql);
     }
 }

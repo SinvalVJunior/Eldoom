@@ -1,13 +1,13 @@
 package com.example.demo.service;
 
-
-import com.example.demo.dao.TrabalhoAlunoM2MDAO;
-import com.example.demo.model.TrabalhoAlunoM2M;
-import com.example.demo.model.TrabalhoAlunoM2MResponse;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.List;
+
+import com.example.demo.dao.Trabalhos.TrabalhoAlunoM2MDAO;
+import com.example.demo.model.TrabalhoAlunoM2M;
+import com.example.demo.model.TrabalhoAlunoM2MResponse;
+
+import org.springframework.stereotype.Service;
 
 @Service
 public class TrabalhoAlunoM2MService {

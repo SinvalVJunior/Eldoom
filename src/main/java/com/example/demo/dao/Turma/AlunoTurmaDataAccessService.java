@@ -1,4 +1,4 @@
-package com.example.demo.dao;
+package com.example.demo.dao.Turma;
 
 import com.example.demo.model.AlunoTurma;
 import com.example.demo.model.AlunoTurmaRequest;
@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.io.IOException;
 import java.util.List;
-
 
 @Repository("postgresAlunoTurma")
 public class AlunoTurmaDataAccessService implements AlunoTurmaDAO {
@@ -23,19 +22,20 @@ public class AlunoTurmaDataAccessService implements AlunoTurmaDAO {
 
     @Override
     public void insertAlunoTurma(AlunoTurma alunoTurma) throws IOException {
-        final String sql = "INSERT INTO alunoTurma ( \"AlunoId\", \"TurmaId\", \"NotaTotal\") VALUES ('"
-                + alunoTurma.getAlunoId() + "', '" + alunoTurma.getTurmaId() + "','" + alunoTurma.getNotaTotal() +"');";
+        final String sql = "INSERT INTO Aluno_Turma (AlunoId, TurmaId, NotaTotal) VALUES ('"
+                + alunoTurma.getAlunoId() + "', '" + alunoTurma.getTurmaId() + "','" + alunoTurma.getNotaTotal()
+                + "');";
 
         jdbcTemplate.execute(sql);
     }
 
     @Override
     public List<AlunoTurmaResponse> getAllAlunoTurma() throws IOException {
-        final String sql = "SELECT a.\"Nome\", t.\"Codigo\" FROM alunoturma inner join aluno a on a.id = alunoturma.\"AlunoId\" inner join turma t on t.id = alunoturma.\"TurmaId\";";
+        final String sql = "SELECT a.Nome, t.Codigo "
+                + "FROM Aluno_Turma inner join aluno a on a.id = Aluno_Turma.AlunoId inner join turma t on t.id = Aluno_Turma.TurmaId;";
         List<AlunoTurmaResponse> alunoTurmaResponseList = jdbcTemplate.query(sql, (resultSet, i) -> {
             String alunoNome = resultSet.getString("nome");
             String turmaCodigo = resultSet.getString("codigo");
-
 
             return new AlunoTurmaResponse(alunoNome, turmaCodigo);
         });
@@ -45,13 +45,17 @@ public class AlunoTurmaDataAccessService implements AlunoTurmaDAO {
 
     @Override
     public void deleteAlunoTurma(AlunoTurmaRequest alunoTurmaRequest) throws IOException {
-        final String sql = "DELETE FROM alunoturma WHERE (alunoturma.\"AlunoId\" = '" + alunoTurmaRequest.getAlunoId() + "' and alunoturma.\"TurmaId\" = " + alunoTurmaRequest.getTurmaId() + ");";
+        final String sql = "DELETE FROM Aluno_Turma WHERE (Aluno_Turma.AlunoId = '" + alunoTurmaRequest.getAlunoId()
+                + "' and Aluno_Turma.TurmaId = " + alunoTurmaRequest.getTurmaId() + ");";
         jdbcTemplate.execute(sql);
     }
 
     @Override
     public void updateAlunoTurma(AlunoTurma alunoTurmaNew, AlunoTurma alunoTurmaOld) throws IOException {
-        final String sql = "UPDATE alunoturma SET \"AlunoId\" = " + alunoTurmaNew.getAlunoId() + ", \"TurmaId\" = " + alunoTurmaNew.getTurmaId() + ", \"NotaTotal\" = " + alunoTurmaNew.getNotaTotal() + "   WHERE (AlunoTurma.\"AlunoId\" = " + alunoTurmaOld.getAlunoId() + " and AlunoTurma.\"TurmaId\" = " + alunoTurmaOld.getTurmaId() + " );";
+        final String sql = "UPDATE Aluno_Turma SET AlunoId = " + alunoTurmaNew.getAlunoId() + ", TurmaId = "
+                + alunoTurmaNew.getTurmaId() + ", NotaTotal = " + alunoTurmaNew.getNotaTotal()
+                + "   WHERE (Aluno_Turma.AlunoId = " + alunoTurmaOld.getAlunoId() + " and Aluno_Turma.TurmaId = "
+                + alunoTurmaOld.getTurmaId() + " );";
         jdbcTemplate.execute(sql);
     }
 }

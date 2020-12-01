@@ -1,11 +1,10 @@
-package com.example.demo.dao;
-
-import com.example.demo.model.Aluno;
-import com.example.demo.model.Professor;
+package com.example.demo.dao.Professor;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import com.example.demo.model.Professor;
 
 public interface ProfessorDAO {
     void insertProfessor(Professor professor) throws IOException;

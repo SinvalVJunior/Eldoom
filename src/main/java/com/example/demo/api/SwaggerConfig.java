@@ -1,46 +1,21 @@
 package com.example.demo.api;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.ArrayList;
-
-import static springfox.documentation.builders.PathSelectors.regex;
+import io.swagger.v3.oas.models.ExternalDocumentation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
-
     @Bean
-    public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.basePackage("com.example.demo"))
-                .paths(regex("/api/v1.*"))
-                .build()
-                .apiInfo(metaInfo());
-    }
-
-    private ApiInfo metaInfo() {
-
-        ApiInfo apiInfo = new ApiInfo(
-                "Eldoom",
-                "API REST para envio de trabalhos acadêmicos",
-                "1.0",
-                "Terms of Service",
-                new Contact("Eldoom","https://chat.google.com/room/AAAA7dStE7Y",
-                        "Eldoom@gmail.com"),
-                "Apache License Version 2.0",
-                "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
-        );
-
-        return apiInfo;
+    public OpenAPI springShopOpenAPI() {
+        Info info = new Info().title("Eldoom").description("API REST para envio de trabalhos acadêmicos")
+                .version("v1.0.0")
+                .license(new License().name("Apache 2.0").url("https://www.apache.org/licesen.html"));
+        ExternalDocumentation extDoc = new ExternalDocumentation()
+                .description("Eldoom")
+                .url("https://chat.google.com/room/AAAA7dStE7Y");
+        return new OpenAPI().info(info).externalDocs(extDoc);
     }
 }

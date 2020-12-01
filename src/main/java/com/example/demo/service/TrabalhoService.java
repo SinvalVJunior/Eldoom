@@ -1,11 +1,12 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.TrabalhoDAO;
+import java.io.IOException;
+
+import com.example.demo.dao.Trabalhos.TrabalhoDAO;
 import com.example.demo.model.Trabalho;
+
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class TrabalhoService {

@@ -1,10 +1,10 @@
-package com.example.demo.dao;
-
-import com.example.demo.model.Aluno;
+package com.example.demo.dao.Aluno;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import com.example.demo.model.Aluno;
 
 public interface AlunoDAO {
     void insertAluno(Aluno aluno) throws IOException;

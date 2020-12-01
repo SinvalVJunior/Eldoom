@@ -1,14 +1,15 @@
 package com.example.demo.service;
 
-import com.example.demo.dao.AlunoDAO;
-import com.example.demo.model.Aluno;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+
+import com.example.demo.dao.Aluno.AlunoDAO;
+import com.example.demo.model.Aluno;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 @Service
 public class AlunoService {

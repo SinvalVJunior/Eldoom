@@ -1,13 +1,12 @@
-package com.example.demo.dao;
+package com.example.demo.dao.Trabalhos;
+
+import java.io.IOException;
 
 import com.example.demo.model.Trabalho;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
 
 
 @Repository("postgresTrabalho")
@@ -20,10 +19,9 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
     @Override
     public void insertTrabalho(Trabalho trabalho) throws IOException {
-        final String sql = "INSERT INTO trabalho ( \"Titulo\", \"Conteudo\", \"ProfessorId\", \"DataEnvio\", \"DataAvaliacao\", \"Nota\") VALUES ('"
+        final String sql = "INSERT INTO trabalho ( Titulo, Conteudo, ProfessorId, DataEnvio, DataAvaliacao, Nota) VALUES ('"
                 + trabalho.getTitulo() + "', '" + trabalho.getConteudo() + "' , '" + trabalho.getProfessorId() + "', '"
                 + trabalho.getDataEnvio() + "' , '" + trabalho.getDataAvaliacao() + "' , '" + trabalho.getNota() + "');";
 
@@ -38,7 +36,7 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
 
     @Override
     public void updateTrabalho(float nota, int id) throws IOException {
-        final String sql = "UPDATE trabalho SET \"Nota\" = " + nota + " WHERE id = " + id + ";";
+        final String sql = "UPDATE trabalho SET Nota = " + nota + " WHERE id = " + id + ";";
         jdbcTemplate.execute(sql);
     }
 }
