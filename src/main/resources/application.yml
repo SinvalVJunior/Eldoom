@@ -8,3 +8,6 @@ app:
     connectionTimeout: 60000 
     idleTimeout: 300000 
     maxLifetime: 1800000 
+
+server:
+  port : 80

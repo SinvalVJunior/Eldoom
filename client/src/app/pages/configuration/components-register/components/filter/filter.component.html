@@ -1,0 +1,45 @@
+<div class="search-bar-card flex-parent card-content searchbar-height">
+  <mat-form-field class="flex-child element-padding">
+    <mat-label>Coordenação</mat-label>
+    <mat-select [(ngModel)]="formData.coordinationId">
+      <mat-option *ngFor="let area of coordinations" [value]="area.id">
+        {{ area.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="flex-child element-padding">
+    <mat-label>Nome</mat-label>
+    <input matInput [(ngModel)]="formData.name" />
+  </mat-form-field>
+  <div class="btns-form-field">
+    <button
+      mat-icon-button
+      color="primary"
+      class="search-icons"
+      (click)="openNewComponentDialog()"
+      matTooltip="Add"
+    >
+      <img src="assets/icons/document.svg" />
+    </button>
+    <button
+      mat-icon-button
+      color="primary"
+      class="search-icons"
+      (click)="clearFilter()"
+      matTooltip="Clear"
+    >
+      <img src="assets/icons/eraser.svg" />
+    </button>
+
+    <button
+      mat-icon-button
+      color="primary"
+      class="search-icons"
+      (click)="submitForm()"
+      matTooltip="Search"
+    >
+      <img src="assets/icons/search.svg" />
+    </button>
+  </div>
+</div>
