@@ -1,6 +1,7 @@
 package com.example.demo.dao.Turma;
 
 import com.example.demo.model.Turma;
+import com.example.demo.model.AlunoTurma;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -65,5 +66,14 @@ public class TurmaDataAccessService implements TurmaDAO {
     public void updateTurma(Turma turma) throws IOException {
         final String sql = "UPDATE turma SET ProfessorId = '" + turma.getProfessorId() + "' WHERE turma.Codigo = '" + turma.getCodigo() + "';";
         jdbcTemplate.execute(sql);
+    }
+
+    @Override
+    public void cadastrarAluno(AlunoTurma alunoTurma) throws IOException {
+        final String sql = "INSERT INTO aluno_turma (alunoId, turmaId) VALUES ('"
+                + alunoTurma.getAlunoId() + "', '" + alunoTurma.getTurmaId() + "');";
+
+        jdbcTemplate.execute(sql);
+
     }
 }

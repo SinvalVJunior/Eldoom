@@ -5,6 +5,7 @@ import com.example.demo.model.Turma;
 import com.example.demo.service.TurmaService;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
+import com.example.demo.model.AlunoTurma;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class TurmaController {
     }
 
     @PostMapping
-    public void insertTurma(@Valid @NonNull @RequestBody Turma turma) throws IOException {
-        turmaService.insertTurma(turma);
+    public void cadastrarAluno(@Valid @NonNull @RequestBody AlunoTurma alunoTurma) throws IOException {
+        turmaService.cadastrarAluno(alunoTurma);
     }
 }
