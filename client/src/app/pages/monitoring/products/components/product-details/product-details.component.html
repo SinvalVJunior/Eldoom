@@ -1,0 +1,332 @@
+<div class="card hoverable">
+  <div class="card-content full-height" *ngIf="loadingData">
+    <div class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </div>
+  <div class="card-content full-height" *ngIf="!loadingData">
+    <div class="title margin-bottom-1">
+      <h3>Detalhes da Especificação</h3>
+    </div>
+    <div class="title margin-bottom-1" *ngIf="!verifyVersion()">
+      <h4><mat-icon>error</mat-icon>{{ "[Versão Desatualizada]" }}</h4>
+    </div>
+    <div class="filter mt-10">
+      <mat-form-field class="w-12">
+        <mat-label class="color">Grupo</mat-label>
+        <input matInput value="{{ product.groupName }}" disabled />
+      </mat-form-field>
+
+      <mat-form-field class="w-12">
+        <mat-label class="color">Produto</mat-label>
+        <input matInput value="{{ product.name }}" disabled />
+      </mat-form-field>
+
+      <mat-form-field class="w-30">
+        <mat-label class="color">Versão da Especificação</mat-label>
+        <mat-select [ngModel]="this.versionId" (selectionChange)="changeVersion($event)">
+          <mat-option *ngFor="let version of versions" [value]="version.id">
+            Versão: {{ version.name }} | Data: {{ version.dateFormat }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-20">
+        <mat-label class="color">Modificado por</mat-label>
+        <input matInput value="{{ this.modifiedBy }}" disabled />
+      </mat-form-field>
+
+      <button mat-stroked-button class="btn-icon" (click)="openDialog()" *ngIf="changes.length > 0">
+        Resumo das Modificações
+      </button>
+    </div>
+
+    <div class="filter position">
+      <mat-form-field class="w-10">
+        <mat-label>Tipo Critério</mat-label>
+        <mat-select [(ngModel)]="tipoCriterioFilter">
+          <mat-option *ngFor="let tipo of tipoCriterio" [value]="tipo">
+            {{ tipo }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="w-10">
+        <mat-label>QPI</mat-label>
+        <mat-select [(ngModel)]="qpiFilter">
+          <mat-option *ngFor="let qpi of qpiOptions" [value]="qpi.value">
+            {{ qpi.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        mat-icon-button
+        color="primary"
+        class="search-icons"
+        (click)="clearFilter()"
+        matTooltip="Clear"
+      >
+        <img class="btn-analytics" src="assets/icons/eraser.svg" />
+      </button>
+      <button
+        mat-icon-button
+        color="primary"
+        class="search-icons"
+        matTooltip="Filtrar"
+        (click)="filter()"
+      >
+        <img class="btn-analytics" src="assets/icons/search.svg" />
+      </button>
+    </div>
+
+    <div *ngIf="tabsLoaded">
+      <mat-tab-group >
+        <mat-tab *ngFor="let tab of this.tabs; let i = index">
+          <ng-template matTabLabel>
+            <span matBadge="{{ countProperties(tab) }}" matBadgeOverlap="false">{{
+              tab.analysisType
+            }}</span></ng-template
+          >
+
+          <mat-table [dataSource]="tab.data" class="hoverable full-width">
+            <ng-container matColumnDef="{{ columnNames[0] }}">
+              <mat-header-cell *matHeaderCellDef>{{ columnNames[0] }}</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[1] }}">
+              <mat-header-cell *matHeaderCellDef class="column-plus border-left"> </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="column-plus border-left text-align-center">
+                {{
+                  element.expansible && !expandedElement.includes(element.id)
+                    ? "+"
+                    : element.expansible && expandedElement.includes(element.id)
+                    ? "-"
+                    : ""
+                }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[2] }}">
+              <mat-header-cell
+                *matHeaderCellDef
+                class="column-properties border-right"
+                (click)="expandAll(tab.data)"
+                >{{ columnNames[2] }}
+              </mat-header-cell>
+              <mat-cell
+                *matCellDef="let element"
+                class="column-properties border-right cell-properties"
+              >
+                <span class="table-data-content" matTooltip="{{ element.analysisName }}"
+                matTooltipClass="custom-tooltip">     {{ element.analysisName }} </span>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[3] }}">
+              <mat-header-cell *matHeaderCellDef class="column-tag text-align-center border-right"
+                >{{ columnNames[3] }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="column-tag text-align-center border-right">
+
+                <span class="table-data-content" matTooltip="  {{ element.pimsTag ? element.pimsTag : ''}}"
+                matTooltipClass="custom-tooltip">{{ element.pimsTag ? element.pimsTag : "-"}} </span></mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[4] }}">
+              <mat-header-cell *matHeaderCellDef class="column-uom text-align-center border-right"
+                >{{ columnNames[4] }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="column-uom text-align-center border-right">
+                {{ element.uom ? element.uom : "-" }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[5] }}">
+              <mat-header-cell *matHeaderCellDef class="text-align-center border-right"
+                >{{ columnNames[5] }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="text-align-center border-right">
+                {{ element.lowerLimit ? element.lowerLimit : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[6] }}">
+              <mat-header-cell *matHeaderCellDef class="text-align-center border-right"
+                >{{ columnNames[6] }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="text-align-center border-right">
+                {{ element.lowerControl ? element.lowerControl : "-" }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[7] }}">
+              <mat-header-cell *matHeaderCellDef class="text-align-center border-right"
+                >{{ columnNames[7] }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="text-align-center border-right">
+                {{ element.objective ? element.objective : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[8] }}">
+              <mat-header-cell *matHeaderCellDef class="text-align-center border-right"
+                >{{ columnNames[8] }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="text-align-center border-right">
+                {{ element.upperControl ? element.upperControl : "-" }}</mat-cell
+              >
+            </ng-container>
+
+            <ng-container matColumnDef="{{ columnNames[9] }}">
+              <mat-header-cell *matHeaderCellDef class="text-align-center border-right"
+                >{{ columnNames[9] }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="text-align-center border-right">
+                {{ element.upperLimit ? element.upperLimit : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef="{{ columnNames[10] }}">
+              <mat-header-cell *matHeaderCellDef class="column-classific text-align-center border-right"
+                >{{ columnNames[10] }}
+              </mat-header-cell>
+              <mat-cell *matCellDef="let element" class="column-classific text-align-center border-right">
+                {{ element.tipoCriterio ? element.tipoCriterio : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef="{{ columnNames[11] }}">
+              <mat-header-cell *matHeaderCellDef class="column-class text-align-center border-right"
+                >{{ columnNames[11] }}
+              </mat-header-cell>
+              <mat-cell
+                *matCellDef="let element"
+                class="column-class text-align-center border-right"
+              >
+                <mat-checkbox *ngIf="element.qpi != null" disabled [checked]="element.qpi">
+                </mat-checkbox>
+                <mat-checkbox *ngIf="element.qpi == null" disabled [indeterminate]="true">
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[0] }}">
+              <mat-cell *matCellDef="let detail">
+                {{ detail.detailRowData.id }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[1] }}">
+              <mat-cell *matCellDef="let detail" class="column-plus border-left"> </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[2] }}">
+              <mat-cell *matCellDef="let detail" class="column-properties border-right">
+                <span class="table-data-content" matTooltip=" {{ detail.detailRowData.componentName }}"
+                matTooltipClass="custom-tooltip"> {{ detail.detailRowData.componentName }} </span>
+
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[3] }}">
+              <mat-cell *matCellDef="let detail" class="column-tag text-align-center border-right">
+                <span class="table-data-content" matTooltip="{{ detail.detailRowData.pimsTag ? detail.detailRowData.pimsTag : ''}}"
+                matTooltipClass="custom-tooltip">{{ detail.detailRowData.pimsTag ? detail.detailRowData.pimsTag : "-"}} </span>
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[4] }}">
+              <mat-cell *matCellDef="let detail" class="column-uom text-align-center border-right">
+                {{ detail.detailRowData.uom ? detail.detailRowData.uom : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[5] }}">
+              <mat-cell *matCellDef="let detail" class="text-align-center border-right">
+                {{ detail.detailRowData.lowerLimit ? detail.detailRowData.lowerLimit : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[6] }}">
+              <mat-cell *matCellDef="let detail" class="text-align-center border-right">
+                {{ detail.detailRowData.lowerControl ? detail.detailRowData.lowerControl : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[7] }}">
+              <mat-cell *matCellDef="let detail" class="text-align-center border-right">
+                {{ detail.detailRowData.objective ? detail.detailRowData.objective : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[8] }}">
+              <mat-cell *matCellDef="let detail" class="text-align-center border-right">
+                {{ detail.detailRowData.upperControl ? detail.detailRowData.upperControl : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container matColumnDef="{{ expandedColumnNames[9] }}">
+              <mat-cell *matCellDef="let detail" class="text-align-center border-right">
+                {{ detail.detailRowData.upperLimit ? detail.detailRowData.upperLimit : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef="{{ expandedColumnNames[10] }}">
+              <mat-cell *matCellDef="let detail" class="text-align-center border-right">
+                {{ detail.detailRowData.tipoCriterio ? detail.detailRowData.tipoCriterio : "-" }}
+              </mat-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef="{{ expandedColumnNames[11] }}">
+              <mat-cell
+                *matCellDef="let detail"
+                class="column-class text-align-center border-right"
+              >
+                <mat-checkbox
+                  *ngIf="detail.detailRowData.qpi != null"
+                  disabled
+                  [checked]="detail.detailRowData.qpi"
+                >
+                </mat-checkbox>
+                <mat-checkbox
+                  *ngIf="detail.detailRowData.qpi == null"
+                  disabled
+                  [indeterminate]="true"
+                >
+                </mat-checkbox>
+              </mat-cell>
+            </ng-container>
+
+            <mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+              class="heigth-50"
+            ></mat-header-row>
+            <mat-row
+              class="heigth-40"
+              *matRowDef="let row; columns: displayedColumns"
+              matRipple
+              (click)="expandRow(row.id)"
+            >
+            </mat-row>
+            <mat-row
+              *matRowDef="let row; columns: expandedDisplayedColumns; when: isExpansionDetailRow"
+              [@detailExpand]="expandedElement.includes(row.rowPai) ? 'expanded' : 'collapsed'"
+              style="overflow: hidden;"
+              class="colapsed"
+            >
+            </mat-row>
+          </mat-table>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+    <div class="action-btns">
+      <a (click)="pdfExport()" class="pdf-export">
+        <mat-icon>picture_as_pdf</mat-icon>
+        Exportar tabela
+      </a>
+    </div>
+  </div>
+</div>

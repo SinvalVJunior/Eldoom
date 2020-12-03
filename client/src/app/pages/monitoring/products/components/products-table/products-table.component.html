@@ -1,0 +1,128 @@
+<div class="card hoverable table-container">
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    (matSortChange)="sortData($event)"
+    class="full-width round-corners"
+  >
+    <ng-container matColumnDef="{{ columnNames[0] }}">
+      <mat-header-cell *matHeaderCellDef>{{ columnNames[0] }}</mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="{{ columnNames[1] }}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-name">{{
+        columnNames[1]
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-name">{{ element.name }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="{{ columnNames[2] }}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-code">{{
+        columnNames[2]
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-code">{{ element.code }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="{{ columnNames[3] }}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-version">{{
+        columnNames[3]
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-version">{{
+        element.specVersion
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="{{ columnNames[4] }}">
+      <mat-header-cell *matHeaderCellDef mat-sort-header class="column-date">{{
+        columnNames[4]
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="column-date">{{
+        element.specDateFormat
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="{{ columnNames[5] }}">
+      <mat-header-cell *matHeaderCellDef>{{ columnNames[5] }}</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary">
+          <mat-icon svgIcon="eye" (click)="openModal(element)"></mat-icon>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Expanded Content Columns - The detail row is made up of this columns   -->
+    <ng-container matColumnDef="expandedId">
+      <mat-cell *matCellDef="let detail">
+        {{ detail.productOlderVersion.id }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedName">
+      <mat-cell *matCellDef="let detail" class="column-name column-child">
+        {{ detail.productOlderVersion.name }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedCode">
+      <mat-cell *matCellDef="let detail" class="column-code">
+        {{ detail.productOlderVersion.code }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedVersion">
+      <mat-cell *matCellDef="let detail" class="column-version">
+        {{ detail.productOlderVersion.specVersion }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="expandedDate">
+      <mat-cell *matCellDef="let detail" class="column-date">
+        {{ detail.productOlderVersion.specDateFormat }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="expandedDetails">
+      <mat-cell *matCellDef="let detail" class="child-details"> </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      matRipple
+      (click)="expandRow($event, row)"
+    >
+    </mat-row>
+    <mat-row
+      *matRowDef="
+        let row;
+        columns: [
+          'expandedName',
+          'expandedCode',
+          'expandedVersion',
+          'expandedDate',
+          'expandedDetails'
+        ];
+        when: isExpansionDetailRow
+      "
+      [@detailExpand]="row.rowPai == expandedElement ? 'expanded' : 'collapsed'"
+      style="overflow: hidden;"
+      class="colapsed"
+    >
+    </mat-row>
+  </mat-table>
+  <mat-paginator
+    [length]="resultsCount"
+    [pageIndex]="pageIndex"
+    [pageSize]="limit"
+    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    (page)="onPageChange($event)"
+    class="mat-paginator-sticky"
+  ></mat-paginator>
+</div>
+
+<div *ngIf="gettingData" class="spinner card-height">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="nothingHappened" class="spinner card-height"></div>

@@ -1,0 +1,88 @@
+<div class="mat-dialog-header" id="size">
+  <h1 mat-dialog-title>Últimas Modificações</h1>
+  <button (click)="close()">X</button>
+</div>
+<div mat-dialog-content>
+  <mat-tab-group>
+    <div *ngFor="let analysis of changes">
+      <mat-tab
+        *ngIf="
+          analysis.addedProperties.length > 0 ||
+          analysis.removedProperties.length > 0 ||
+          analysis.addedComponents.length > 0 ||
+          analysis.removedComponents.length > 0 ||
+          analysis.modifiedProperties.length > 0
+        "
+      >
+        <ng-template matTabLabel>
+          <span>{{ analysis.name }}</span>
+        </ng-template>
+
+        <mat-expansion-panel *ngIf="analysis.addedProperties.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Propriedades Adicionadas:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul>
+            <li *ngFor="let added of analysis.addedProperties">
+              {{ added }}
+            </li>
+          </ul>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="analysis.removedProperties.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Propriedades Removidas:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul>
+            <li *ngFor="let removed of analysis.removedProperties">
+              {{ removed }}
+            </li>
+          </ul>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="analysis.addedComponents.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Componentes Adicionados:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul>
+            <li *ngFor="let added of analysis.addedComponents">
+              {{ added }}
+            </li>
+          </ul>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="analysis.removedComponents.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Componentes Removidos:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul>
+            <li *ngFor="let removed of analysis.removedComponents">
+              {{ removed }}
+            </li>
+          </ul>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel *ngIf="analysis.modifiedProperties.length > 0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Propriedades Modificadas:
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ul>
+            <li *ngFor="let modified of analysis.modifiedProperties">
+              {{ modified }}
+            </li>
+          </ul>
+        </mat-expansion-panel>
+      </mat-tab>
+    </div>
+  </mat-tab-group>
+</div>

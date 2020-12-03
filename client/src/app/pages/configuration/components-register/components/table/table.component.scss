@@ -1,0 +1,85 @@
+@import "../../../../../../variables.scss";
+
+.table-container {
+  max-height: $card-after-searchbar-height;
+  overflow: auto;
+}
+
+.add-button {
+  margin-left: 20px;
+  margin-bottom: 15px;
+}
+
+.name {
+  width: 28%;
+  margin-right: 10%;
+}
+
+.area {
+  width: 20%;
+  margin-right: 10px;
+}
+
+.mat-expansion-panel-header-description {
+  flex-grow: 0;
+  align-items: center;
+}
+.mat-expansion-panel-header-title {
+  flex-grow: 0;
+  margin-right: 10%;
+  align-items: center;
+}
+
+.mat-expansion-panel-header-title {
+  width: 28%;
+}
+
+.mat-expansion-panel-header-description {
+  min-width: 8%;
+}
+
+.date {
+  min-width: 22%;
+  margin-right: 8.5%;
+}
+
+mat-card {
+  padding: 0;
+  height: 48px;
+}
+
+.area-filter {
+  margin-left: 5px;
+}
+
+.name-width {
+  margin-right: 18%;
+  min-width: 15%;
+}
+
+.coordenacao {
+  margin-right: 1%;
+}
+
+.pointer {
+  cursor: pointer;
+}
+$table-card-height: calc(#{$card-full-height} - 200px);
+.table-height {
+  max-height: $table-card-height;
+  overflow: auto;
+}
+
+.spinner {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.shadow {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}

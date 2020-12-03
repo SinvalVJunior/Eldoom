@@ -1,0 +1,19 @@
+<div class="card searchbar-height hoverable">
+  <app-search-bar
+    (formReceived)="onFormReceived($event)"
+    (productGroups)="onProductGroupsReceived($event)"
+  ></app-search-bar>
+</div>
+
+<app-products-table
+  [data]="productsTableData"
+  [gettingData]="gettingData"
+  [nothingHappened]="nothingHappened"
+  [resultsCount]="resultsCount"
+  [limit]="limit"
+  [pageIndex]="pageIndex"
+  [productGroups]="productGroups"
+  (pageEvent)="onPageChange($event)"
+  (sortEvent)="onSortChange($event)"
+>
+</app-products-table>
