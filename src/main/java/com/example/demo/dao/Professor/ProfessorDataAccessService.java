@@ -3,6 +3,7 @@ package com.example.demo.dao.Professor;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 import com.example.demo.model.Professor;
 
@@ -31,11 +32,13 @@ public class ProfessorDataAccessService implements ProfessorDAO {
 
     @Override
     public List<Professor> getAllProfessor() throws IOException {
-        final String sql = "SELECT Nome FROM professor;";
+        final String sql = "SELECT Nome, dataNascimento, id FROM professor;";
         List<Professor> professorList = jdbcTemplate.query(sql, (resultSet, i) -> {
             String nome = resultSet.getString("nome");
+            Date dataNascimento = resultSet.getDate("dataNascimento");
+            int id = Integer.parseInt(resultSet.getString("id"));
 
-            return new Professor(nome);
+            return new Professor(nome, id, dataNascimento);
         });
 
         return professorList;
@@ -43,10 +46,13 @@ public class ProfessorDataAccessService implements ProfessorDAO {
 
     @Override
     public Optional<Professor> getProfessorById(int id) throws IOException {
-        final String sql = "SELECT Nome FROM professor WHERE professor.id = " + id + ";";
+        final String sql = "SELECT Nome, dataNascimento, id as idProfessor FROM professor WHERE professor.id = " + id + ";";
         List<Professor> professorSelected = jdbcTemplate.query(sql, (resultSet, i) -> {
             String nome = resultSet.getString("nome");
-            return new Professor(nome);
+            Date dataNascimento = resultSet.getDate("dataNascimento");
+            int idProfessor = Integer.parseInt(resultSet.getString("idProfessor"));
+
+            return new Professor(nome, idProfessor, dataNascimento);
         });
 
         return professorSelected.stream().findFirst();

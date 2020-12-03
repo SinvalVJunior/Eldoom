@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import com.example.demo.dao.Turma.TurmaDAO;
 import com.example.demo.model.Turma;
+import com.example.demo.model.AlunoTurma;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -39,5 +40,9 @@ public class TurmaService {
 
     public void insertTurma(Turma turma) throws IOException {
         turmaDAO.insertTurma(turma);
+    }
+
+    public void cadastrarAluno(AlunoTurma alunoTurma) throws IOException {
+        turmaDAO.cadastrarAluno(alunoTurma);
     }
 }

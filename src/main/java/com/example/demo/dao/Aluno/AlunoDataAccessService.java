@@ -3,6 +3,7 @@ package com.example.demo.dao.Aluno;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 import com.example.demo.model.Aluno;
 
@@ -31,12 +32,15 @@ public class AlunoDataAccessService implements AlunoDAO {
 
     @Override
     public List<Aluno> getAllAluno() throws IOException {
-        final String sql = "SELECT Matricula, Nome FROM aluno;";
+        final String sql = "SELECT Matricula, Nome, dataNascimento, dataMatricula, id FROM aluno;";
         List<Aluno> alunoList = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matricula = Integer.parseInt(resultSet.getString("matricula"));
+            int id = Integer.parseInt(resultSet.getString("id"));
             String nome = resultSet.getString("nome");
+            Date dataNascimento = resultSet.getDate("dataNascimento");
+            Date dataMatricula = resultSet.getDate("dataMatricula");
 
-            return new Aluno(matricula, nome);
+            return new Aluno(matricula, nome, dataNascimento, dataMatricula, id);
         });
 
         return alunoList;
@@ -44,11 +48,15 @@ public class AlunoDataAccessService implements AlunoDAO {
 
     @Override
     public Optional<Aluno> getAlunoByMatricula(int matricula) throws IOException {
-        final String sql = "SELECT Matricula, Nome FROM aluno WHERE aluno.Matricula = '" + matricula + "';";
+        final String sql = "SELECT Matricula, Nome, dataNascimento, dataMatricula  FROM aluno WHERE aluno.Matricula = '" + matricula + "';";
         List<Aluno> alunoSelected = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matriculaFound = Integer.parseInt(resultSet.getString("matricula"));
+            int id = Integer.parseInt(resultSet.getString("id"));
             String nome = resultSet.getString("nome");
-            return new Aluno(matriculaFound, nome);
+            Date dataNascimento = resultSet.getDate("dataNascimento");
+            Date dataMatricula = resultSet.getDate("dataMatricula");
+
+            return new Aluno(matricula, nome, dataNascimento, dataMatricula, id);
         });
 
         return alunoSelected.stream().findFirst();
