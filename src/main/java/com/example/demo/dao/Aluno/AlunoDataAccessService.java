@@ -7,6 +7,7 @@ import java.util.Date;
 
 import com.example.demo.model.Aluno;
 
+import com.example.demo.model.AlunoAprovado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -73,4 +74,28 @@ public class AlunoDataAccessService implements AlunoDAO {
         final String sql = "UPDATE aluno SET Nome = '" + aluno.getNome() + "' WHERE aluno.Matricula = '" + aluno.getMatricula() + "';";
         jdbcTemplate.execute(sql);
     }
+
+    @Override
+    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma() throws IOException {
+        final String sql = "SELECT t.id as turmaId, a.id as alunoId, max(t.codigo) as codigoTurma, max(a.nome) as nomeAluno\n" +
+                "FROM aluno a,\n" +
+                "     turma t,\n" +
+                "     aluno_turma al\n" +
+                "where al.alunoid = a.id\n" +
+                "  and t.id = al.turmaid\n" +
+                "group by t.id, a.id\n" +
+                "having avg(al.notatotal) > 60;";
+
+        List<AlunoAprovado> alunoAprovadoList = jdbcTemplate.query(sql, (resultSet, i) -> {
+            int turmaId = Integer.parseInt(resultSet.getString("turmaId"));
+            int alunoId = Integer.parseInt(resultSet.getString("alunoId"));
+            String nomeAluno = resultSet.getString("nomeAluno");
+            String codigoTurma = resultSet.getString("codigoTurma");
+
+            return new AlunoAprovado(turmaId, alunoId, codigoTurma, nomeAluno);
+        });
+
+        return alunoAprovadoList;
+    }
+
 }

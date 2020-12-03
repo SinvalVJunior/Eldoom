@@ -1,6 +1,7 @@
 package com.example.demo.api;
 
 import com.example.demo.model.Aluno;
+import com.example.demo.model.AlunoAprovado;
 import com.example.demo.service.AlunoService;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
@@ -45,5 +46,10 @@ public class AlunoController {
     @PostMapping
     public void insertAluno(@Valid @NonNull @RequestBody Aluno aluno) throws IOException {
         alunoService.insertAluno(aluno);
+    }
+
+    @GetMapping(path = "/aluno/aprovado")
+    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma() throws IOException {
+        return alunoService.getAlunoAprovadoGroupByTurma();
     }
 }
