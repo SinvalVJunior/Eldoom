@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 
 import com.example.demo.model.Trabalho;
 
+import com.example.demo.model.TrabalhoAlunoM2MResponse;
 import com.example.demo.model.TrabalhoCreateRequest;
 import com.example.demo.model.TrabalhoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +37,20 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
 
         final String sql = "INSERT INTO trabalho ( Titulo, Conteudo, ProfessorId, DataEnvio, TurmaId) VALUES ('"
                 + trabalhoCreateRequest.getTitulo() + "', '" + trabalhoCreateRequest.getConteudo() + "' , " + trabalhoCreateRequest.getProfessorId() + " , '"
-                + nowAsISO + "' , "+ trabalhoCreateRequest.getTurmaid() + " );";
-        System.out.println(sql);
-        jdbcTemplate.execute(sql);
+                + nowAsISO + "' , "+ trabalhoCreateRequest.getTurmaid() + " ) RETURNING id; ";
+
+        List<Integer> newTrabalhoId = jdbcTemplate.query(sql, (resultSet, i) -> {
+            Integer trabalhoId = Integer.parseInt(resultSet.getString("id"));
+            return trabalhoId;
+        });
+
+
+        trabalhoCreateRequest.getAlunoList().forEach( alunoId -> {
+            String sqlInsertAlunoTrabalho = "INSERT INTO aluno_trabalho (alunoid, trabalhoid) VALUES (" + alunoId + ", " + newTrabalhoId + ");";
+            System.out.println(sqlInsertAlunoTrabalho);
+            jdbcTemplate.execute(sqlInsertAlunoTrabalho);
+        });
+
     }
 
     @Override
