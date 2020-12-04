@@ -11,4 +11,8 @@ public interface DisciplinaDAO {
 
     List<Disciplina> getAllDisciplina() throws IOException;
 
+    void updateDisciplina(Disciplina disciplinaNew, int id) throws IOException;
+
+    void deleteDisciplina(int id) throws IOException;
+
 }
