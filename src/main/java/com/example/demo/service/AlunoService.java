@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.example.demo.dao.Aluno.AlunoDAO;
 import com.example.demo.model.Aluno;
 
+import com.example.demo.model.AlunoAprovado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,9 @@ public class AlunoService {
 
     public void insertAluno(Aluno aluno) throws IOException{
         alunoDAO.insertAluno(aluno);
+    }
+    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma(Integer turmaId) throws IOException {
+        return alunoDAO.getAlunoAprovadoGroupByTurma(turmaId);
     }
 
 }
