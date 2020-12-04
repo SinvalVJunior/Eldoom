@@ -5,12 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Avaliacao {
     private float nota;
     private int id;
-    private String dataAvaliacao;
 
-    public Avaliacao(@JsonProperty("nota") float nota, @JsonProperty("id") int id, @JsonProperty("dataAvaliacao") String dataAvaliacao) {
+    public Avaliacao(@JsonProperty("nota") float nota, @JsonProperty("id") int id) {
         this.nota = nota;
         this.id = id;
-        this.dataAvaliacao = dataAvaliacao;
     }
 
     public float getNota() {
@@ -19,14 +17,6 @@ public class Avaliacao {
 
     public void setNota(float nota) {
         this.nota = nota;
-    }
-
-    public String getDataAvaliacao() {
-        return dataAvaliacao;
-    }
-
-    public void setDataAvaliacao(String dataAvaliacao) {
-        this.dataAvaliacao = dataAvaliacao;
     }
 
     public int getId() {
