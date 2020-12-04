@@ -1,5 +1,6 @@
 package com.example.demo.dao.Turma;
 
+import com.example.demo.model.AlunoTurmaRequest;
 import com.example.demo.model.Turma;
 import com.example.demo.model.AlunoTurma;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +24,25 @@ public class TurmaDataAccessService implements TurmaDAO {
     @Override
     public void insertTurma(Turma turma) throws IOException {
 
-        final String sql = "INSERT INTO turma ( Codigo, ProfessorId) VALUES ('"
-                + turma.getCodigo() + "', '" + turma.getProfessorId() + "');";
+        final String sql = "INSERT INTO turma ( Codigo, ProfessorId, medianotaturma, disciplinaid) VALUES ('"
+                + turma.getCodigo() + "', '" + turma.getProfessorId() + "', '" + turma.getMedianotaturma() + "', '" + turma.getDisciplinaId() + "');";
 
         jdbcTemplate.execute(sql);
     }
 
     @Override
     public List<Turma> getAllTurma() throws IOException {
-        final String sql = "SELECT t.codigo as codigo, t.professorId as professorId, p.nome as NomeProfessor, t.id as id, t.medianotaturma as medianotaturma FROM turma t JOIN professor p ON t.professorId=p.id;";
-        System.out.println(sql);
+        final String sql = "SELECT t.codigo as codigo, t.professorId as professorId, p.nome as NomeProfessor, t.id as id, t.medianotaturma as medianotaturma, t.disciplinaid as disciplinaId FROM turma t JOIN professor p ON t.professorId=p.id;";
+
         List<Turma> turmaList = jdbcTemplate.query(sql, (resultSet, i) -> {
             int professorId = Integer.parseInt(resultSet.getString("professorId"));
             String codigo = resultSet.getString("codigo");
             String nome = resultSet.getString("NomeProfessor");
             int id = Integer.parseInt(resultSet.getString("id"));
             Float medianotaturma = resultSet.getString("medianotaturma") != null ? Float.parseFloat(resultSet.getString("medianotaturma")) : 0;
-            return new Turma(codigo, professorId, id, medianotaturma, nome);
+            int disciplinaId = Integer.parseInt(resultSet.getString("disciplinaId"));
+
+            return new Turma(codigo, professorId, id, medianotaturma, nome, disciplinaId);
         });
 
         return turmaList;
@@ -55,8 +58,9 @@ public class TurmaDataAccessService implements TurmaDAO {
             String nome = resultSet.getString("NomeProfessor");
             int id = Integer.parseInt(resultSet.getString("id"));
             float medianotaturma = Float.parseFloat(resultSet.getString("medianotaturma"));
+            int disciplinaId = Integer.parseInt(resultSet.getString("disciplinaId"));
 
-            return new Turma(codigoFound, professorId, id, medianotaturma, nome);
+            return new Turma(codigoFound, professorId, id, medianotaturma, nome, disciplinaId);
         });
 
         return turmaSelected.stream().findFirst();
@@ -81,5 +85,12 @@ public class TurmaDataAccessService implements TurmaDAO {
 
         jdbcTemplate.execute(sql);
 
+    }
+
+    @Override
+    public void removerAluno(AlunoTurmaRequest alunoTurmaRequest) throws IOException {
+        final String sql = "DELETE FROM Aluno_Turma WHERE (Aluno_Turma.AlunoId = '" + alunoTurmaRequest.getAlunoId()
+                + "' and Aluno_Turma.TurmaId = " + alunoTurmaRequest.getTurmaId() + ");";
+        jdbcTemplate.execute(sql);
     }
 }
