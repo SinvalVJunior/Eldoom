@@ -1,9 +1,15 @@
 package com.example.demo.dao.Trabalhos;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 import com.example.demo.model.Trabalho;
 
+import com.example.demo.model.TrabalhoCreateRequest;
+import com.example.demo.model.TrabalhoRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,11 +26,17 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
     }
 
     @Override
-    public void insertTrabalho(Trabalho trabalho) throws IOException {
-        final String sql = "INSERT INTO trabalho ( Titulo, Conteudo, ProfessorId, DataEnvio, DataAvaliacao, Nota) VALUES ('"
-                + trabalho.getTitulo() + "', '" + trabalho.getConteudo() + "' , '" + trabalho.getProfessorId() + "', '"
-                + trabalho.getDataEnvio() + "' , '" + trabalho.getDataAvaliacao() + "' , '" + trabalho.getNota() + "');";
+    public void insertTrabalho(TrabalhoCreateRequest trabalhoCreateRequest) throws IOException {
 
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+
+        final String sql = "INSERT INTO trabalho ( Titulo, Conteudo, ProfessorId, DataEnvio, TurmaId) VALUES ('"
+                + trabalhoCreateRequest.getTitulo() + "', '" + trabalhoCreateRequest.getConteudo() + "' , " + trabalhoCreateRequest.getProfessorId() + " , '"
+                + nowAsISO + "' , "+ trabalhoCreateRequest.getTurmaid() + " );";
+        System.out.println(sql);
         jdbcTemplate.execute(sql);
     }
 

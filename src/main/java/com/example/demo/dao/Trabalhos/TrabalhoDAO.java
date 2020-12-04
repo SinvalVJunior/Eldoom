@@ -3,9 +3,10 @@ package com.example.demo.dao.Trabalhos;
 import java.io.IOException;
 
 import com.example.demo.model.Trabalho;
+import com.example.demo.model.TrabalhoCreateRequest;
 
 public interface TrabalhoDAO {
-    void insertTrabalho(Trabalho trabalho) throws IOException;
+    void insertTrabalho(TrabalhoCreateRequest trabalhoCreateRequest) throws IOException;
 
     void deleteTrabalho(int id) throws IOException;
 
