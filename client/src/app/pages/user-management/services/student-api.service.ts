@@ -11,7 +11,7 @@ import { StudentFilter } from "../models/student-filter.model";
 export class StudentApiService {
   constructor(private api: HttpClient) {}
 
-  getStudents(filter: StudentFilter): Observable<Student[]> {
+  getFiltered(filter: StudentFilter): Observable<Student[]> {
     return this.api.get<Student[]>("/api/v1/aluno", { params: FilterToParams(filter) });
   }
 }
