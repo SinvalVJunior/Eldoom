@@ -1,4 +1,4 @@
-create function nota_final_procedure() returns trigger
+create or replace function nota_final_procedure() returns trigger
     language plpgsql
 as
 $$
