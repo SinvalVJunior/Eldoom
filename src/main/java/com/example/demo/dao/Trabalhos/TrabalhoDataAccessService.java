@@ -58,7 +58,11 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
 
     @Override
     public void avaliarTrabalho(Avaliacao avaliacao) throws IOException {
-        final String sql = "UPDATE trabalho SET Nota = " + avaliacao.getNota() + " WHERE id = " + avaliacao.getId() + ";";
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+        final String sql = "UPDATE trabalho SET Nota = " + avaliacao.getNota() + ", dataavaliacao = "+ nowAsISO + " WHERE id = " + avaliacao.getId() + ";";
         jdbcTemplate.execute(sql);
     }
 }
