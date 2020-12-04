@@ -1,13 +1,25 @@
+--Inserção Curso
+INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'ECOMP', 'Engenharia de Computacao', null);
+
+INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'EELET', 'Engenharia Elétrica', null);
+
+INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'EMEC', 'Engenharia Mecânica', null);
+
+INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'LETR', 'Letras', null);
+
+INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'ADM', 'Administracao', null);
+
+
 --Inserção dos alunos
-INSERT INTO aluno (id, nome, matricula, DataNascimento, DataMatricula) VALUES (default, 'Jorge', 123456, '1998-12-02 23:59:48.000000', '2007-11-20 23:59:48.000000');
+INSERT INTO aluno (id, nome, matricula, cursoid, DataNascimento, DataMatricula) VALUES (default, 'Jorge', 123456, 1,'1998-12-02 23:59:48.000000', '2007-11-20 23:59:48.000000');
 
-INSERT INTO aluno (id, nome, matricula, DataNascimento, DataMatricula) VALUES (default, 'Carlos', 234567, '1995-08-08 23:59:48.000000', '2012-10-18 23:59:48.000000');
+INSERT INTO aluno (id, nome, matricula, cursoid, DataNascimento, DataMatricula) VALUES (default, 'Carlos', 234567, 1,'1995-08-08 23:59:48.000000', '2012-10-18 23:59:48.000000');
 
-INSERT INTO aluno (id, nome, matricula, DataNascimento, DataMatricula) VALUES (default, 'Marcus', 345678, '1997-09-09 23:59:48.000000', '2010-06-17 23:59:48.000000');
+INSERT INTO aluno (id, nome, matricula, cursoid, DataNascimento, DataMatricula) VALUES (default, 'Marcus', 345678, 2,'1997-09-09 23:59:48.000000', '2010-06-17 23:59:48.000000');
 
-INSERT INTO aluno (id, nome, matricula, DataNascimento, DataMatricula) VALUES (default, 'Matheus', 456789, '1993-07-05 23:59:48.000000', '2008-07-15 23:59:48.000000');
+INSERT INTO aluno (id, nome, matricula, cursoid, DataNascimento, DataMatricula) VALUES (default, 'Matheus', 456789, 3,'1993-07-05 23:59:48.000000', '2008-07-15 23:59:48.000000');
 
-INSERT INTO aluno (id, nome, matricula, DataNascimento, DataMatricula) VALUES (default, 'Lucas', 012345, '2000-03-02 23:59:48.000000', '2009-05-16 23:59:48.000000');
+INSERT INTO aluno (id, nome, matricula, cursoid, DataNascimento, DataMatricula) VALUES (default, 'Lucas', 012345, 4,'2000-03-02 23:59:48.000000', '2009-05-16 23:59:48.000000');
 
 --Inserção dos Professores
 INSERT INTO professor (id, nome, DataNascimento) VALUES (default, 'Natalia', '1983-03-02 23:59:48.000000');
@@ -19,17 +31,6 @@ INSERT INTO professor (id, nome, DataNascimento) VALUES (default, 'Edson', '1971
 INSERT INTO professor (id, nome, DataNascimento) VALUES (default, 'Thiago', '1973-06-10 23:59:48.000000');
 
 INSERT INTO professor (id, nome, DataNascimento) VALUES (default, 'Bruno', '1955-01-01 23:59:48.000000');
-
---Inserção Curso
-INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'ECOMP', 'Engenharia de Computacao', null);
-
-INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'EELET', 'Engenharia Elétrica', null);
-
-INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'EMEC', 'Engenharia Mecânica', null);
-
-INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'LETR', 'Letras', null);
-
-INSERT INTO curso (id, codigo, nome, medianotacurso) VALUES (default, 'ADM', 'Administracao', null);
 
 
 --Insercao Disciplina
@@ -75,7 +76,7 @@ INSERT INTO aluno_turma (alunoid, turmaid, notatotal) VALUES (4, 3, null);
 
 INSERT INTO aluno_turma (alunoid, turmaid, notatotal) VALUES (5, 4, null);
 
-INSERT INTO "Eldoom".aluno_turma (alunoid, turmaid, notatotal) VALUES (1, 5, null);
+INSERT INTO aluno_turma (alunoid, turmaid, notatotal) VALUES (1, 5, null);
 
 --Inserção Trabalho-Aluno
 INSERT INTO trabalho_aluno (alunoid, trabalhoid) VALUES (3, 1);
