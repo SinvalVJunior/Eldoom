@@ -1,14 +1,21 @@
 import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { CompleteRoutes, CompleteRoutesName } from "src/app/shared/extensions/CompleteRoutes";
-import { StudentComponent } from './pages/student/student.component';
+import { StudentComponent } from './student/student.component';
+import { TeacherComponent } from './teacher/teacher.component';
 
 const routes: CompleteRoutes = [
   {
     path: "usermanagement/student",
     component: StudentComponent,
     icon: "person",
-    name: "Alunos"
+    name: "Alunos",
+  },
+  {
+    path: "usermanagement/teacher",
+    component: TeacherComponent,
+    icon: "person",
+    name: "Professores",
   },
 ];
 
