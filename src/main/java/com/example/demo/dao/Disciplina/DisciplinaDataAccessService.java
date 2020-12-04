@@ -46,5 +46,19 @@ public class DisciplinaDataAccessService implements DisciplinaDAO {
         return DisciplinaList;
     }
 
-    
+    @Override
+    public void updateDisciplina(Disciplina disciplinaNew, int id) throws IOException {
+        final String sql = "UPDATE disciplina SET nome = '"+ disciplinaNew.getNome() + "', descricao = '"+ disciplinaNew.getDescricao() +
+                "', cursoid = '"+ disciplinaNew.getCursoId() + "', codigo = '"+ disciplinaNew.getCodigo() +"' WHERE id = " + disciplinaNew.getId() + ";";
+
+        jdbcTemplate.execute(sql);
+    }
+
+    @Override
+    public void deleteDisciplina(int id) throws IOException {
+        final String sql = "DELETE FROM disciplina WHERE discplina.id = " + id + ";";
+        jdbcTemplate.execute(sql);
+    }
+
+
 }

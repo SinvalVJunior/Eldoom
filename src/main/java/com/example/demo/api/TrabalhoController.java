@@ -2,6 +2,7 @@ package com.example.demo.api;
 
 
 import com.example.demo.model.Trabalho;
+import com.example.demo.model.TrabalhoCreateRequest;
 import com.example.demo.model.TrabalhoRequest;
 import com.example.demo.service.TrabalhoService;
 import org.springframework.lang.NonNull;
@@ -22,8 +23,8 @@ public class TrabalhoController {
     }
 
     @PostMapping
-    public void insereTrabalho(@Valid @NonNull @RequestBody Trabalho trabalho) throws IOException {
-        trabalhoService.insertTrabalho(trabalho);
+    public void cadastrarTrabalho(@Valid @NonNull @RequestBody TrabalhoCreateRequest trabalhoCreateRequest) throws IOException {
+        trabalhoService.insertTrabalho(trabalhoCreateRequest);
     }
 
     @DeleteMapping(path = "{id}")

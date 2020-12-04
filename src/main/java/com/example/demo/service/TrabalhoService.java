@@ -5,6 +5,8 @@ import java.io.IOException;
 import com.example.demo.dao.Trabalhos.TrabalhoDAO;
 import com.example.demo.model.Trabalho;
 
+import com.example.demo.model.TrabalhoCreateRequest;
+import com.example.demo.model.TrabalhoRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,8 @@ public class TrabalhoService {
         this.trabalhoDAO = trabalhoDAO;
     }
 
-    public void insertTrabalho(Trabalho trabalho) throws IOException {
-        trabalhoDAO.insertTrabalho(trabalho);
+    public void insertTrabalho(TrabalhoCreateRequest trabalhoCreateRequest) throws IOException {
+        trabalhoDAO.insertTrabalho(trabalhoCreateRequest);
     }
 
     public void deleteTrabalho(int id) throws IOException {

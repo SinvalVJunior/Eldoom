@@ -11,4 +11,8 @@ public interface CursoDAO {
 
     List<Curso> getAllCurso() throws IOException;
 
+    void updateCurso(Curso cursoNew, int id) throws IOException;
+
+    void deleteCurso(int id) throws IOException;
+
 }

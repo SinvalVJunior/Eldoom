@@ -3,18 +3,19 @@ create function nota_final_procedure() returns trigger
 as
 $$
 BEGIN
-    IF NEW.Nota <> OLD.Nota THEN
-        UPDATE aluno_turma
-        SET NotaTotal= (SELECT avg(Nota)
-                        from Trabalho
-                                 JOIN trabalho_aluno TAM2M on Trabalho.id = TAM2M.TrabalhoId
-                        WHERE aluno_turma.AlunoId = TAM2M.AlunoId
-                        GROUP BY aluno_turma.AlunoId)
-        WHERE AlunoId IN (SELECT AlunoId
-                          from trabalho_aluno
-                                   join Trabalho T on T.id = trabalho_aluno.TrabalhoId
-                          WHERE TrabalhoId = NEW.id);
-    END IF;
+    UPDATE "Eldoom".aluno_turma
+    SET NotaTotal= (SELECT avg(Trab.Nota)
+                    FROM "Eldoom".Trabalho Trab
+                             JOIN "Eldoom".trabalho_aluno TRAB_ALUN ON Trab.id = TRAB_ALUN.TrabalhoId
+                    WHERE "Eldoom".aluno_turma.AlunoId = TRAB_ALUN.AlunoId
+                      AND "Eldoom".aluno_turma.Turmaid = Trab.turmaid
+                    GROUP BY "Eldoom".aluno_turma.AlunoId, "Eldoom".aluno_turma.turmaid
+                    LIMIT 1)
+    WHERE (AlunoId, Turmaid) = (SELECT TRAB_ALUN.AlunoId, T.turmaid
+                                FROM "Eldoom".trabalho_aluno TRAB_ALUN
+                                         JOIN "Eldoom".Trabalho T ON T.id = TRAB_ALUN.TrabalhoId
+                                WHERE TRAB_ALUN.TrabalhoId = NEW.id
+                                LIMIT 1);
 
     RETURN NEW;
 END ;

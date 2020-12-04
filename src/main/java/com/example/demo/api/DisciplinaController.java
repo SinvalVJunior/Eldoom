@@ -31,4 +31,15 @@ public class DisciplinaController {
     public void insertDisciplina(@Valid @NonNull @RequestBody Disciplina disciplina) throws IOException {
         disciplinaService.insertDisciplina(disciplina);
     }
+
+    @DeleteMapping(path = "{id}")
+    public void deleteDisciplina(@RequestParam int id) throws IOException {
+        disciplinaService.deleteDisciplina(id);
+    }
+
+    @PutMapping(path = "{id}")
+    public void updateDisciplina(@RequestBody Disciplina disciplina, @RequestParam int id) throws IOException {
+        disciplinaService.updateDiscilpina(disciplina, id);
+    }
+
 }

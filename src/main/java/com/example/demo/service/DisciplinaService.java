@@ -28,4 +28,12 @@ public class DisciplinaService {
         disciplinaDAO.insertDisciplina(Disciplina);
     }
 
+    public void updateDiscilpina(Disciplina disciplinaNew, int id) throws IOException {
+        disciplinaDAO.updateDisciplina(disciplinaNew, id);
+    }
+
+    public void deleteDisciplina(int id) throws IOException {
+        disciplinaDAO.deleteDisciplina(id);
+    }
+
 }

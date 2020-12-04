@@ -44,5 +44,19 @@ public class CursoDataAccessService implements CursoDAO {
         return CursoList;
     }
 
-    
+    @Override
+    public void updateCurso(Curso cursoNew, int id) throws IOException {
+        final String sql = "UPDATE curso SET nome = '"+ cursoNew.getNome() + "', codigo = '"+ cursoNew.getCodigo() +
+                "WHERE id = " + cursoNew.getId() + ";";
+
+        jdbcTemplate.execute(sql);
+    }
+
+    @Override
+    public void deleteCurso(int id) throws IOException {
+        final String sql = "DELETE FROM curso WHERE curso.id = " + id + ";";
+        jdbcTemplate.execute(sql);
+    }
+
+
 }
