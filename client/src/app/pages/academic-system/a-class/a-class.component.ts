@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { BaseApiService } from 'src/app/services/base-api.service';
-import { CustomSearchBarDefinition, FieldType } from 'src/app/shared/components/custom-search-bar/models/custom-search-bar.model';
-import { CustomTableDefinition, ColumnDefinition } from 'src/app/shared/components/custom-table/models/custom-table-data.model';
-import { Teacher } from '../../user-management/models/teacher.model';
-import { AClassFilter } from '../models/AClass-filter.model';
-import { AClass } from '../models/AClass.model';
+import { Component, OnInit } from "@angular/core";
+import { BaseApiService } from "src/app/services/base-api.service";
+import {
+  CustomSearchBarDefinition,
+  FieldType,
+} from "src/app/shared/components/custom-search-bar/models/custom-search-bar.model";
+import {
+  CustomTableDefinition,
+  ColumnDefinition,
+} from "src/app/shared/components/custom-table/models/custom-table-data.model";
+import { Teacher } from "../../user-management/models/teacher.model";
+import { AClassFilter } from "../models/AClass-filter.model";
+import { AClass } from "../models/AClass.model";
 
 @Component({
   templateUrl: "./a-class.component.html",
@@ -19,8 +25,13 @@ export class AClassComponent implements OnInit {
         allowSorting: true,
       },
       {
-        name: "nome",
-        displayName: "Nome",
+        name: "professorNome",
+        displayName: "Professor",
+        allowSorting: true,
+      },
+      {
+        name: "mediaNotaTurma",
+        displayName: "Media - Nota",
         allowSorting: true,
       },
       {
@@ -49,12 +60,16 @@ export class AClassComponent implements OnInit {
   });
   values: AClass[] = [];
   searchBarDefinition: CustomSearchBarDefinition = new CustomSearchBarDefinition({
-    fields: [{ name: "Registro", type: FieldType.TEXT, filterName: "id" }],
+    fields: [
+      { name: "Codigo", type: FieldType.TEXT, filterName: "codigo" },
+      { name: "Professor", type: FieldType.TEXT, filterName: "professorNome" },
+      { name: "Disciplina", type: FieldType.TEXT, filterName: "disciplinaNome" },
+    ],
   });
   searchBarFilter: AClassFilter = {};
 
-  constructor(private api: BaseApiService<Teacher>) {
-    api.urlPath = "/api/v1/professor";
+  constructor(private api: BaseApiService<AClass>) {
+    api.urlPath = "/api/v1/turma";
   }
 
   getData() {
