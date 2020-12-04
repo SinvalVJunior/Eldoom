@@ -40,8 +40,8 @@ public class AlunoService {
     public void insertAluno(Aluno aluno) throws IOException{
         alunoDAO.insertAluno(aluno);
     }
-    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma() throws IOException {
-        return alunoDAO.getAlunoAprovadoGroupByTurma();
+    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma(Integer turmaId) throws IOException {
+        return alunoDAO.getAlunoAprovadoGroupByTurma(turmaId);
     }
 
 }

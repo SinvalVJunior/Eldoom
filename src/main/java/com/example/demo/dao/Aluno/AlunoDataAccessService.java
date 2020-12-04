@@ -76,15 +76,17 @@ public class AlunoDataAccessService implements AlunoDAO {
     }
 
     @Override
-    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma() throws IOException {
+    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma(Integer turmaIdQuery) throws IOException {
+        System.out.println(turmaIdQuery);
         final String sql = "SELECT t.id as turmaId, a.id as alunoId, max(t.codigo) as codigoTurma, max(a.nome) as nomeAluno\n" +
                 "FROM aluno a,\n" +
                 "     turma t,\n" +
                 "     aluno_turma al\n" +
                 "where al.alunoid = a.id\n" +
-                "  and t.id = al.turmaid\n" +
+                (turmaIdQuery != null ? "  and t.id = al.turmaid\n" : "") +
                 "group by t.id, a.id\n" +
                 "having avg(al.notatotal) > 60;";
+        System.out.println(sql);
 
         List<AlunoAprovado> alunoAprovadoList = jdbcTemplate.query(sql, (resultSet, i) -> {
             int turmaId = Integer.parseInt(resultSet.getString("turmaId"));

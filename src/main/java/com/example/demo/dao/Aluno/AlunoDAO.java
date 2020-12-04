@@ -18,5 +18,5 @@ public interface AlunoDAO {
 
     void updateAluno(Aluno aluno) throws IOException;
 
-    List<AlunoAprovado> getAlunoAprovadoGroupByTurma() throws IOException;
+    List<AlunoAprovado> getAlunoAprovadoGroupByTurma(Integer turmaId) throws IOException;
 }

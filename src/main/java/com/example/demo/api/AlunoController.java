@@ -4,6 +4,7 @@ import com.example.demo.model.Aluno;
 import com.example.demo.model.AlunoAprovado;
 import com.example.demo.service.AlunoService;
 import org.springframework.lang.NonNull;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,7 +50,8 @@ public class AlunoController {
     }
 
     @GetMapping(path = "/aluno/aprovado")
-    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma() throws IOException {
-        return alunoService.getAlunoAprovadoGroupByTurma();
+    @ResponseBody
+    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma( @Nullable Integer idTurma) throws IOException {
+        return alunoService.getAlunoAprovadoGroupByTurma(idTurma);
     }
 }
