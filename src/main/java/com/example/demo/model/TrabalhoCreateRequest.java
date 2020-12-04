@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 
 public class TrabalhoCreateRequest {
@@ -10,7 +12,7 @@ public class TrabalhoCreateRequest {
     private List<Integer> alunoList;
     private int turmaid;
 
-    public TrabalhoCreateRequest(String titulo, String conteudo, int professorId, List<Integer> alunoList, int turmaid) {
+    public TrabalhoCreateRequest(@JsonProperty("titulo") String titulo, @JsonProperty("conteudo") String conteudo, @JsonProperty("professorId") int professorId, @JsonProperty("alunoList") List<Integer> alunoList, @JsonProperty("turmaId") int turmaid) {
         this.titulo = titulo;
         this.conteudo = conteudo;
         this.professorId = professorId;

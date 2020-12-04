@@ -1,6 +1,7 @@
 package com.example.demo.api;
 
 
+import com.example.demo.model.Avaliacao;
 import com.example.demo.model.Trabalho;
 import com.example.demo.model.TrabalhoCreateRequest;
 import com.example.demo.model.TrabalhoRequest;
@@ -33,8 +34,8 @@ public class TrabalhoController {
     }
 
     @PutMapping
-    public void updateTrabalho(TrabalhoRequest trabalhoRequest ) throws IOException {
-        trabalhoService.updateTrabalho(trabalhoRequest.getNota(), trabalhoRequest.getId());
+    public void avaliarTrabalho(Avaliacao avaliacao ) throws IOException {
+        trabalhoService.avaliarTrabalho(avaliacao);
     }
 
 }
