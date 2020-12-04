@@ -1,6 +1,5 @@
 import { CompleteRoute, CompleteRoutesName } from "./../../shared/extensions/CompleteRoutes";
 import { MonitoringRoutes } from "./../../pages/monitoring/monitoring-routing.module";
-import { ConfigurationRoutes } from "./../../pages/configuration/configuration-routing.module";
 import { MultipleRoutes } from "src/app/shared/extensions/CompleteRoutes";
 import { Component, OnInit } from "@angular/core";
 import { Router, RouterEvent, NavigationEnd } from "@angular/router";
@@ -21,7 +20,7 @@ export class MenuComponent implements OnInit {
   currentPath: string = "";
 
   constructor(router: Router, public confirmationModal: ConfirmationModalService) {
-    this.multipleRoutes.push(MonitoringRoutes, ConfigurationRoutes, UserManagementRoutes);
+    this.multipleRoutes.push(MonitoringRoutes, UserManagementRoutes);
 
     /**
      * Cria um Array que contem todas as rotas em apenas

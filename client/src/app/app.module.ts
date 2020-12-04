@@ -8,7 +8,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { MaterialModule } from "./material-module";
 import { SharedModule } from "./shared/shared.module";
-import { ConfigurationModule } from "./pages/configuration/configuration.module";
 import { MenuComponent } from "./components/menu/menu.component";
 import { IconSideBarComponent } from "./components/menu/icon-side-bar/icon-side-bar.component";
 import { InnerMenuComponent } from "./components/menu/inner-menu/inner-menu.component";
@@ -17,6 +16,7 @@ import { HttpInterceptorService } from "./services/http-interceptor.service";
 import { FormsModule } from "@angular/forms";
 import { MonitoringModule } from "./pages/monitoring/monitoring.module";
 import { UserManagementModule } from './pages/user-management/user-management.module';
+import { AcademicSystemModule } from './pages/academic-system/academic-system.module';
 
 export const unprotectedResources: string[] = ["/assets"];
 
@@ -36,12 +36,12 @@ registerLocaleData(localePt, "pt");
     AppRoutingModule,
     BrowserAnimationsModule,
     MonitoringModule,
-    ConfigurationModule,
     UserManagementModule,
     MaterialModule,
     HttpClientModule,
     SharedModule,
     FormsModule,
+    AcademicSystemModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true },

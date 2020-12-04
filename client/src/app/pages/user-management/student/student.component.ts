@@ -1,4 +1,4 @@
-import { StudentFilter } from "./../../models/student-filter.model";
+import { StudentFilter } from "../models/student-filter.model";
 import { Component, OnInit } from "@angular/core";
 import {
   CustomSearchBarDefinition,
@@ -8,8 +8,8 @@ import {
   ColumnDefinition,
   CustomTableDefinition,
 } from "src/app/shared/components/custom-table/models/custom-table-data.model";
-import { Student } from "../../models/student.model";
-import { StudentApiService } from "../../services/student-api.service";
+import { Student } from "../models/student.model";
+import { StudentApiService } from "../services/student-api.service";
 
 @Component({
   selector: "app-student",
@@ -133,6 +133,7 @@ export class StudentComponent implements OnInit {
   // ];
   searchBarDefinition: CustomSearchBarDefinition = new CustomSearchBarDefinition({
     fields: [
+      { name: "Nome", type: FieldType.TEXT, filterName: "nome" },
       { name: "Matricula", type: FieldType.TEXT, filterName: "matricula" },
       {
         name: "Data de Matricula",
@@ -155,12 +156,10 @@ export class StudentComponent implements OnInit {
   });
   searchBarFilter: StudentFilter = {};
 
-  constructor(private studentApi: StudentApiService) {
-    (window as any).test = this;
-  }
+  constructor(private api: StudentApiService) {}
 
-  getStudents() {
-    this.studentApi.getStudents(this.searchBarFilter).subscribe(
+  getData() {
+    this.api.getFiltered(this.searchBarFilter).subscribe(
       (data) => {
         this.values = data;
       },
@@ -169,6 +168,6 @@ export class StudentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getStudents();
+    this.getData();
   }
 }
