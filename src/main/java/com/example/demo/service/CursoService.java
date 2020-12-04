@@ -24,8 +24,16 @@ public class CursoService {
         return cursoDAO.getAllCurso();
     }
 
-    public void insertCurso(Curso curso) throws IOException{
+    public void insertCurso(Curso curso) throws IOException {
         cursoDAO.insertCurso(curso);
+    }
+
+    public void updateCurso(Curso cursoNew, int id) throws IOException {
+        cursoDAO.updateCurso(cursoNew, id);
+    }
+
+    public void deleteCurso(int id) throws IOException {
+        cursoDAO.deleteCurso(id);
     }
 
 }

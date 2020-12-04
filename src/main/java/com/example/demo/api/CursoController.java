@@ -31,4 +31,14 @@ public class CursoController {
     public void insertCurso(@Valid @NonNull @RequestBody Curso Curso) throws IOException {
         CursoService.insertCurso(Curso);
     }
+
+    @PutMapping(path = "{id}")
+    public void updateCurso(@RequestBody Curso cursoNew, @RequestParam int id) throws IOException {
+        CursoService.updateCurso(cursoNew, id);
+    }
+
+    @DeleteMapping(path = "{id}")
+    public void deleteCurso(@RequestParam int id) throws IOException {
+        CursoService.deleteCurso(id);
+    }
 }

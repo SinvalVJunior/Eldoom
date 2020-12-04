@@ -36,7 +36,9 @@ public class TurmaDataAccessService implements TurmaDAO {
             int professorId = Integer.parseInt(resultSet.getString("professorId"));
             String codigo = resultSet.getString("codigo");
             String nome = resultSet.getString("NomeProfessor");
-            return new Turma(codigo, professorId, nome);
+            int id = Integer.parseInt(resultSet.getString("id"));
+            float medianotaturma = Float.parseFloat(resultSet.getString("medianotaturma"));
+            return new Turma(codigo, professorId, id, medianotaturma, nome);
         });
 
         return turmaList;
@@ -50,7 +52,10 @@ public class TurmaDataAccessService implements TurmaDAO {
             String codigoFound = resultSet.getString("codigo");
             int professorId = Integer.parseInt(resultSet.getString("professorId"));
             String nome = resultSet.getString("NomeProfessor");
-            return new Turma(codigoFound, professorId, nome);
+            int id = Integer.parseInt(resultSet.getString("id"));
+            float medianotaturma = Float.parseFloat(resultSet.getString("medianotaturma"));
+
+            return new Turma(codigoFound, professorId, id, medianotaturma, nome);
         });
 
         return turmaSelected.stream().findFirst();
