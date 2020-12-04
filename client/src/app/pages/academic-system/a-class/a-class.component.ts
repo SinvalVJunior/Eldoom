@@ -1,21 +1,21 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { BaseApiService } from 'src/app/services/base-api.service';
 import { CustomSearchBarDefinition, FieldType } from 'src/app/shared/components/custom-search-bar/models/custom-search-bar.model';
 import { CustomTableDefinition, ColumnDefinition } from 'src/app/shared/components/custom-table/models/custom-table-data.model';
-import { TeacherFilter } from '../models/teacher-filter.model';
-import { Teacher } from '../models/teacher.model';
+import { Teacher } from '../../user-management/models/teacher.model';
+import { AClassFilter } from '../models/AClass-filter.model';
+import { AClass } from '../models/AClass.model';
 
 @Component({
-  selector: "app-teacher",
-  templateUrl: "./teacher.component.html",
-  styleUrls: ["./teacher.component.scss"],
+  templateUrl: "./a-class.component.html",
+  styleUrls: ["./a-class.component.scss"],
 })
-export class TeacherComponent implements OnInit {
+export class AClassComponent implements OnInit {
   tableDefinition: CustomTableDefinition = new CustomTableDefinition({
     columnDefinitions: [
       {
-        name: "id",
-        displayName: "Registro",
+        name: "codigo",
+        displayName: "Codigo",
         allowSorting: true,
       },
       {
@@ -47,11 +47,11 @@ export class TeacherComponent implements OnInit {
     paginate: true,
     frontPaginateSort: true,
   });
-  values: Teacher[] = [];
+  values: AClass[] = [];
   searchBarDefinition: CustomSearchBarDefinition = new CustomSearchBarDefinition({
     fields: [{ name: "Registro", type: FieldType.TEXT, filterName: "id" }],
   });
-  searchBarFilter: TeacherFilter = {};
+  searchBarFilter: AClassFilter = {};
 
   constructor(private api: BaseApiService<Teacher>) {
     api.urlPath = "/api/v1/professor";
