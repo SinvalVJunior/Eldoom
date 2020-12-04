@@ -1,13 +1,11 @@
 package com.example.demo.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.example.demo.dao.Trabalhos.TrabalhoDAO;
-import com.example.demo.model.Avaliacao;
-import com.example.demo.model.Trabalho;
+import com.example.demo.model.*;
 
-import com.example.demo.model.TrabalhoCreateRequest;
-import com.example.demo.model.TrabalhoRequest;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -33,4 +31,15 @@ public class TrabalhoService {
         trabalhoDAO.avaliarTrabalho(avaliacao);
     }
 
+    public List<TrabalhoAlunoM2MResponse> getTrabalhoAuthors() throws IOException {
+        return trabalhoDAO.getTrabalhoAuthors();
+    }
+
+    public void addTrabalhoAlthor(TrabalhoAlunoM2M trabalhoAlunoM2M) throws IOException {
+        trabalhoDAO.addTrabalhoAlthor(trabalhoAlunoM2M);
+    }
+
+    public void removeTrabalhoAuthor(TrabalhoAlunoM2M trabalhoAlunoM2M) throws IOException {
+        trabalhoDAO.removeTrabalhoAuthor(trabalhoAlunoM2M);
+    }
 }
