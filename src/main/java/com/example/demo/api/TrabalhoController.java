@@ -34,7 +34,7 @@ public class TrabalhoController {
     }
 
     @PutMapping
-    public void avaliarTrabalho(Avaliacao avaliacao ) throws IOException {
+    public void avaliarTrabalho(@Valid @NonNull @RequestBody Avaliacao avaliacao ) throws IOException {
         trabalhoService.avaliarTrabalho(avaliacao);
     }
 

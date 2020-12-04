@@ -43,10 +43,12 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
 
 
         trabalhoCreateRequest.getAlunoList().forEach( alunoId -> {
-            String sqlInsertAlunoTrabalho = "INSERT INTO aluno_trabalho (alunoid, trabalhoid) VALUES (" + alunoId + ", " + newTrabalhoId + ");";
+            String sqlInsertAlunoTrabalho = "INSERT INTO trabalho_aluno (alunoid, trabalhoid) VALUES (" + alunoId + ", " + newTrabalhoId.get(0) + ");";
             System.out.println(sqlInsertAlunoTrabalho);
             jdbcTemplate.execute(sqlInsertAlunoTrabalho);
         });
+
+
 
     }
 
@@ -58,7 +60,12 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
 
     @Override
     public void avaliarTrabalho(Avaliacao avaliacao) throws IOException {
-        final String sql = "UPDATE trabalho SET Nota = " + avaliacao.getNota() + " WHERE id = " + avaliacao.getId() + ";";
+        TimeZone tz = TimeZone.getTimeZone("UTC");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'"); // Quoted "Z" to indicate UTC, no timezone offset
+        df.setTimeZone(tz);
+        String nowAsISO = df.format(new Date());
+        final String sql = "UPDATE trabalho SET Nota = " + avaliacao.getNota() + " , dataavaliacao = '"+ nowAsISO + "' WHERE id = " + avaliacao.getId() + ";";
+        System.out.println(sql);
         jdbcTemplate.execute(sql);
     }
 }

@@ -12,7 +12,7 @@ public class TrabalhoCreateRequest {
     private List<Integer> alunoList;
     private int turmaid;
 
-    public TrabalhoCreateRequest(@JsonProperty("titulo") String titulo, @JsonProperty("conteudo") String conteudo, @JsonProperty("professorId") int professorId, @JsonProperty("alunoList") List<Integer> alunoList, @JsonProperty("turmaId") int turmaid) {
+    public TrabalhoCreateRequest(@JsonProperty("titulo") String titulo, @JsonProperty("conteudo") String conteudo, @JsonProperty("professorId") int professorId, @JsonProperty("alunoList") List<Integer> alunoList, @JsonProperty("turmaid") int turmaid) {
         this.titulo = titulo;
         this.conteudo = conteudo;
         this.professorId = professorId;

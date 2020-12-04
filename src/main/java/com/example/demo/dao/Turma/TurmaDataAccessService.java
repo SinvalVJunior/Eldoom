@@ -31,13 +31,14 @@ public class TurmaDataAccessService implements TurmaDAO {
 
     @Override
     public List<Turma> getAllTurma() throws IOException {
-        final String sql = "SELECT t.codigo as codigo, t.professorId as professorId, p.nome as NomeProfessor FROM turma t JOIN professor p ON t.professorId=p.id;";
+        final String sql = "SELECT t.codigo as codigo, t.professorId as professorId, p.nome as NomeProfessor, t.id as id, t.medianotaturma as medianotaturma FROM turma t JOIN professor p ON t.professorId=p.id;";
+        System.out.println(sql);
         List<Turma> turmaList = jdbcTemplate.query(sql, (resultSet, i) -> {
             int professorId = Integer.parseInt(resultSet.getString("professorId"));
             String codigo = resultSet.getString("codigo");
             String nome = resultSet.getString("NomeProfessor");
             int id = Integer.parseInt(resultSet.getString("id"));
-            float medianotaturma = Float.parseFloat(resultSet.getString("medianotaturma"));
+            Float medianotaturma = resultSet.getString("medianotaturma") != null ? Float.parseFloat(resultSet.getString("medianotaturma")) : 0;
             return new Turma(codigo, professorId, id, medianotaturma, nome);
         });
 

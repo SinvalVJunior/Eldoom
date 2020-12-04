@@ -8,10 +8,10 @@ public class Turma {
     private final String codigo;
     private final int professorId;
     private final int id;
-    private final float medianotaturma;
+    private final Float medianotaturma;
     private final String professorNome;
 
-    public Turma(@JsonProperty("codigo") String codigo, @JsonProperty("professorId") int professorId, @JsonProperty("id") int id, @JsonProperty("medianotaturma") float medianotaturma, @JsonProperty("nome") String nome) {
+    public Turma(@JsonProperty("codigo") String codigo, @JsonProperty("professorId") int professorId, @JsonProperty("id") int id, @JsonProperty("medianotaturma") Float medianotaturma, @JsonProperty("nome") String nome) {
         this.codigo = codigo;
         this.professorId = professorId;
         this.id = id;
