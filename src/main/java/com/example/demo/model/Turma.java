@@ -30,4 +30,12 @@ public class Turma {
     public int getProfessorId() {
         return professorId;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public float getMedianotaturma() {
+        return medianotaturma;
+    }
 }
