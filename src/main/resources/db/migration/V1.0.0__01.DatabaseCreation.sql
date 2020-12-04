@@ -1,4 +1,4 @@
-create table curso
+create table if not exists curso
 (
     id      serial not null
         constraint PK_Curso primary key,
@@ -7,7 +7,7 @@ create table curso
     MediaNotaCurso numeric(10,4)
 );
 
-create table aluno
+create table if not exists aluno
 (
     id             serial  not null
         constraint PK_aluno primary key,
@@ -20,7 +20,7 @@ create table aluno
     DataMatricula  date
 );
 
-create table professor
+create table if not exists professor
 (
     id             serial not null
         constraint PK_professor primary key,
@@ -29,7 +29,7 @@ create table professor
 );
 
 
-create table disciplina
+create table if not exists disciplina
 (
     id                      serial not null
         constraint PK_Disciplina primary key,
@@ -43,7 +43,7 @@ create table disciplina
 );
 
 
-create table turma
+create table if not exists turma
 (
     id          serial not null
         constraint PK_turma primary key,
@@ -57,7 +57,7 @@ create table turma
         on delete set default
 );
 
-create table aluno_turma
+create table if not exists aluno_turma
 (
     AlunoId   integer
         constraint FK_aluno_turma__aluno references aluno
@@ -69,7 +69,7 @@ create table aluno_turma
     constraint PK_aluno_turma primary key (AlunoId, TurmaId)
 );
 
-create table trabalho
+create table if not exists trabalho
 (
     id            serial    not null
         constraint PK_trabalhos primary key,
@@ -85,7 +85,7 @@ create table trabalho
     Nota          numeric(10, 4)
 );
 
-create table trabalho_aluno
+create table if not exists trabalho_aluno
 (
     AlunoId    integer
         constraint FK_trabalho_aluno_m2m__aluno references aluno
