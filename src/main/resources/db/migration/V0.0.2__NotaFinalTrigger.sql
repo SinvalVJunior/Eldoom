@@ -1,4 +1,4 @@
-create function nota_final_procedure() returns trigger
+create or replace function "Eldoom".nota_final_procedure() returns trigger
     language plpgsql
 as
 $$
@@ -23,7 +23,7 @@ $$;
 
 create trigger nota_final
     after update of Nota
-    on trabalho
+    on "Eldoom".trabalho
     for each row
 execute
-    procedure nota_final_procedure();
+    procedure "Eldoom".nota_final_procedure();
