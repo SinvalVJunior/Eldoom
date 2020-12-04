@@ -9,7 +9,7 @@ import {
   CustomTableDefinition,
 } from "src/app/shared/components/custom-table/models/custom-table-data.model";
 import { Student } from "../models/student.model";
-import { StudentApiService } from "../services/student-api.service";
+import { BaseApiService } from 'src/app/services/base-api.service';
 
 @Component({
   selector: "app-student",
@@ -156,7 +156,9 @@ export class StudentComponent implements OnInit {
   });
   searchBarFilter: StudentFilter = {};
 
-  constructor(private api: StudentApiService) {}
+  constructor(private api: BaseApiService<Student>) {
+    api.urlPath = "/api/v1/aluno";
+  }
 
   getData() {
     this.api.getFiltered(this.searchBarFilter).subscribe(
