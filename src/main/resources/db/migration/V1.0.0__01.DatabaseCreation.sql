@@ -1,3 +1,12 @@
+create table curso
+(
+    id      serial not null
+        constraint PK_Curso primary key,
+    Codigo  text,
+    Nome    text,
+    MediaNotaCurso numeric(10,4)
+);
+
 create table aluno
 (
     id             serial  not null
@@ -5,6 +14,8 @@ create table aluno
     Nome           text    not null,
     Matricula      integer not null
         constraint UQ_aluno_matricula unique,
+    CursoId integer not null
+        constraint FK_aluno_curso references curso,
     DataNascimento date,
     DataMatricula  date
 );
@@ -17,14 +28,6 @@ create table professor
     DataNascimento date
 );
 
-create table curso
-(
-    id      serial not null
-        constraint PK_Curso primary key,
-    Codigo  text,
-    Nome    text,
-    MediaNotaCurso numeric(10,4)
-);
 
 create table disciplina
 (
@@ -108,5 +111,3 @@ check (MediaNotaTurma >= 0 AND MediaNotaTurma <= 100);
 alter table aluno_turma
 add constraint limite_NotaFinal_check
 check (NotaTotal >= 0 AND NotaTotal <= 100);
-
-
