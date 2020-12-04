@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.io.IOException;
 
 import com.example.demo.dao.Trabalhos.TrabalhoDAO;
+import com.example.demo.model.Avaliacao;
 import com.example.demo.model.Trabalho;
 
 import com.example.demo.model.TrabalhoCreateRequest;
@@ -28,8 +29,8 @@ public class TrabalhoService {
         trabalhoDAO.deleteTrabalho(id);
     }
 
-    public void updateTrabalho(float nota, int id) throws IOException {
-        trabalhoDAO.updateTrabalho(nota, id);
+    public void avaliarTrabalho(Avaliacao avaliacao) throws IOException {
+        trabalhoDAO.avaliarTrabalho(avaliacao);
     }
 
 }
