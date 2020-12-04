@@ -3,9 +3,11 @@ package com.example.demo.dao.Aluno;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.Date;
 
 import com.example.demo.model.Aluno;
 
+import com.example.demo.model.AlunoAprovado;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -31,12 +33,15 @@ public class AlunoDataAccessService implements AlunoDAO {
 
     @Override
     public List<Aluno> getAllAluno() throws IOException {
-        final String sql = "SELECT Matricula, Nome FROM aluno;";
+        final String sql = "SELECT Matricula, Nome, dataNascimento, dataMatricula, id FROM aluno;";
         List<Aluno> alunoList = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matricula = Integer.parseInt(resultSet.getString("matricula"));
+            int id = Integer.parseInt(resultSet.getString("id"));
             String nome = resultSet.getString("nome");
+            Date dataNascimento = resultSet.getDate("dataNascimento");
+            Date dataMatricula = resultSet.getDate("dataMatricula");
 
-            return new Aluno(matricula, nome);
+            return new Aluno(matricula, nome, dataNascimento, dataMatricula, id);
         });
 
         return alunoList;
@@ -44,11 +49,15 @@ public class AlunoDataAccessService implements AlunoDAO {
 
     @Override
     public Optional<Aluno> getAlunoByMatricula(int matricula) throws IOException {
-        final String sql = "SELECT Matricula, Nome FROM aluno WHERE aluno.Matricula = '" + matricula + "';";
+        final String sql = "SELECT Matricula, Nome, dataNascimento, dataMatricula  FROM aluno WHERE aluno.Matricula = '" + matricula + "';";
         List<Aluno> alunoSelected = jdbcTemplate.query(sql, (resultSet, i) -> {
             int matriculaFound = Integer.parseInt(resultSet.getString("matricula"));
+            int id = Integer.parseInt(resultSet.getString("id"));
             String nome = resultSet.getString("nome");
-            return new Aluno(matriculaFound, nome);
+            Date dataNascimento = resultSet.getDate("dataNascimento");
+            Date dataMatricula = resultSet.getDate("dataMatricula");
+
+            return new Aluno(matricula, nome, dataNascimento, dataMatricula, id);
         });
 
         return alunoSelected.stream().findFirst();
@@ -65,4 +74,28 @@ public class AlunoDataAccessService implements AlunoDAO {
         final String sql = "UPDATE aluno SET Nome = '" + aluno.getNome() + "' WHERE aluno.Matricula = '" + aluno.getMatricula() + "';";
         jdbcTemplate.execute(sql);
     }
+
+    @Override
+    public List<AlunoAprovado> getAlunoAprovadoGroupByTurma(Integer turmaIdQuery) throws IOException {
+        final String sql = "SELECT t.id as turmaId, a.id as alunoId, max(t.codigo) as codigoTurma, max(a.nome) as nomeAluno\n" +
+                "FROM aluno a,\n" +
+                "     turma t,\n" +
+                "     aluno_turma al\n" +
+                "where al.alunoid = a.id\n" +
+                (turmaIdQuery != null ? "  and t.id = al.turmaid\n" : "") +
+                "group by t.id, a.id\n" +
+                "having avg(al.notatotal) > 60;";
+
+        List<AlunoAprovado> alunoAprovadoList = jdbcTemplate.query(sql, (resultSet, i) -> {
+            int turmaId = Integer.parseInt(resultSet.getString("turmaId"));
+            int alunoId = Integer.parseInt(resultSet.getString("alunoId"));
+            String nomeAluno = resultSet.getString("nomeAluno");
+            String codigoTurma = resultSet.getString("codigoTurma");
+
+            return new AlunoAprovado(turmaId, alunoId, codigoTurma, nomeAluno);
+        });
+
+        return alunoAprovadoList;
+    }
+
 }
