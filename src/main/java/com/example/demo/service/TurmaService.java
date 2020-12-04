@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.example.demo.dao.Turma.TurmaDAO;
+import com.example.demo.model.AlunoTurmaRequest;
 import com.example.demo.model.Turma;
 import com.example.demo.model.AlunoTurma;
 
@@ -44,5 +45,9 @@ public class TurmaService {
 
     public void cadastrarAluno(AlunoTurma alunoTurma) throws IOException {
         turmaDAO.cadastrarAluno(alunoTurma);
+    }
+
+    public void removerAluno(AlunoTurmaRequest alunoTurmaRequest) throws IOException {
+        turmaDAO.removerAluno(alunoTurmaRequest);
     }
 }

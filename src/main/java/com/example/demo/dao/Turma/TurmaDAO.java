@@ -1,5 +1,6 @@
 package com.example.demo.dao.Turma;
 
+import com.example.demo.model.AlunoTurmaRequest;
 import com.example.demo.model.Turma;
 import com.example.demo.model.AlunoTurma;
 import java.io.IOException;
@@ -18,5 +19,7 @@ public interface TurmaDAO {
     void updateTurma(Turma turma) throws IOException;
 
     void cadastrarAluno(AlunoTurma alunoTurma) throws IOException;
+
+    void removerAluno(AlunoTurmaRequest alunoTurmaRequest) throws IOException;
 
 }

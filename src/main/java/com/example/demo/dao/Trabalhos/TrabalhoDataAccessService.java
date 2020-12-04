@@ -48,8 +48,6 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
             jdbcTemplate.execute(sqlInsertAlunoTrabalho);
         });
 
-
-
     }
 
     @Override
@@ -66,6 +64,34 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
         String nowAsISO = df.format(new Date());
         final String sql = "UPDATE trabalho SET Nota = " + avaliacao.getNota() + " , dataavaliacao = '"+ nowAsISO + "' WHERE id = " + avaliacao.getId() + ";";
         System.out.println(sql);
+        jdbcTemplate.execute(sql);
+    }
+
+
+    @Override
+    public List<TrabalhoAlunoM2MResponse> getTrabalhoAuthors() throws IOException {
+        final String sql = "SELECT a.Nome, t.Titulo FROM Trabalho_Aluno inner join aluno a on a.id = Trabalho_Aluno.AlunoId inner join trabalho t on t.id = Trabalho_Aluno.TrabalhoId;";
+        List<TrabalhoAlunoM2MResponse> trabalhoAlunoList = jdbcTemplate.query(sql, (resultSet, i) -> {
+            String alunoNome = resultSet.getString("nome");
+            String trabalhoTitulo = resultSet.getString("titulo");
+
+
+            return new TrabalhoAlunoM2MResponse(alunoNome, trabalhoTitulo);
+        });
+        return trabalhoAlunoList;
+    }
+
+    @Override
+    public void addTrabalhoAlthor(TrabalhoAlunoM2M trabalhoAlunoM2M) throws IOException {
+        final String sql = "INSERT INTO Trabalho_Aluno(AlunoId, TrabalhoId) VALUES ('"
+                + trabalhoAlunoM2M.getAlunoId() + "', '" + trabalhoAlunoM2M.getTrabalhoId() + "');";
+
+        jdbcTemplate.execute(sql);
+    }
+
+    @Override
+    public void removeTrabalhoAuthor(TrabalhoAlunoM2M trabalhoAlunoM2M) throws IOException {
+        final String sql = "DELETE FROM Trabalho_Aluno WHERE (Trabalho_Aluno.AlunoId = " + trabalhoAlunoM2M.getAlunoId() + " and Trabalho_Aluno.TrabalhoId = " + trabalhoAlunoM2M.getTrabalhoId() + ");";
         jdbcTemplate.execute(sql);
     }
 }
