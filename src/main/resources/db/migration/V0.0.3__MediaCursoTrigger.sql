@@ -16,7 +16,7 @@ END ;
 $$;
 
 create trigger media_curso
-    after update of MediaNotasDisciplina
+    after insert or update of MediaNotasDisciplina
     on "Eldoom".Disciplina
     for each row
 execute

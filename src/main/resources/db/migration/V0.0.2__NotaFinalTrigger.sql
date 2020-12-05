@@ -22,7 +22,7 @@ END ;
 $$;
 
 create trigger nota_final
-    after update of Nota
+    after insert or update of Nota
     on "Eldoom".trabalho
     for each row
 execute

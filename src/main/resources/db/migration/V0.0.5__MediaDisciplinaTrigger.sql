@@ -16,7 +16,7 @@ END ;
 $$;
 
 create trigger media_disciplina
-    after update of MediaNotaTurma
+    after insert or update of MediaNotaTurma
     on "Eldoom".turma
     for each row
 execute

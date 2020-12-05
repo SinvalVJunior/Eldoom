@@ -16,7 +16,7 @@ END ;
 $$;
 
 create trigger media_turma
-    after update of NotaTotal
+    after insert or update of NotaTotal
     on "Eldoom".aluno_turma
     for each row
 execute
