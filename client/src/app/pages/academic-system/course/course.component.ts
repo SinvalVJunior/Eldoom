@@ -55,7 +55,7 @@ export class CourseComponent implements OnInit {
   searchBarFilter: object = {};
 
   constructor(private api: BaseApiService<Course>) {
-    api.urlPath = "​/api/v1/curso";
+    api.urlPath = "/api/v1/curso";
   }
 
   getData() {
