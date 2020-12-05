@@ -60,7 +60,7 @@ export class SubjectsComponent implements OnInit {
   searchBarFilter: object = {};
 
   constructor(private api: BaseApiService<Subject>) {
-    api.urlPath = "​/api/v1/disciplina";
+    api.urlPath = "/api/v1/disciplina";
   }
 
   getData() {
