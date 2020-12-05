@@ -16,19 +16,19 @@ const routes: CompleteRoutes = [
   {
     path: "usermanagement/course",
     component: CourseComponent,
-    icon: "class",
+    icon: "folder",
     name: "Cursos",
   },
   {
     path: "usermanagement/subjects",
     component: SubjectsComponent,
-    icon: "class",
+    icon: "topic",
     name: "Disciplinas",
   },
   {
     path: "usermanagement/work",
     component: WorkComponent,
-    icon: "class",
+    icon: "assignment",
     name: "Trabalhos",
   },
 ];

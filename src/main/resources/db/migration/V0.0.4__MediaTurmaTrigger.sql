@@ -9,7 +9,7 @@ BEGIN
                     WHERE aluno_turma.Turmaid = NEW.Turmaid
                     GROUP BY aluno_turma.turmaid
                     LIMIT 1)
-    WHERE "Eldoom".turma.Turmaid = New.Turmaid;
+    WHERE "Eldoom".turma.id = New.Turmaid;
 
     RETURN NEW;
 END ;

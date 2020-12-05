@@ -22,6 +22,27 @@ export class WorkComponent implements OnInit {
         allowSorting: true,
       },
       {
+        name: "dataEnvio",
+        displayName: "Data de Envio",
+        allowSorting: true,
+        getValueFunc: (obj: Work) => {
+          return new Date(obj.dataEnvio).toLocaleString();
+        },
+      },
+      {
+        name: "dataAvaliacao",
+        displayName: "Data de Avaliação",
+        allowSorting: true,
+        getValueFunc: (obj: Work) => {
+          return new Date(obj.dataAvaliacao).toLocaleString();
+        },
+      },
+      {
+        name: "nota",
+        displayName: "Nota",
+        allowSorting: true,
+      },
+      {
         name: "Editar",
         customHeaderClass: "column-small",
         customCellClass: "column-small",

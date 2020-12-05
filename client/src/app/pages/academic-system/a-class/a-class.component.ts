@@ -29,8 +29,8 @@ export class AClassComponent implements OnInit {
         allowSorting: true,
       },
       {
-        name: "mediaNotaTurma",
-        displayName: "Media - Nota",
+        name: "medianotaturma",
+        displayName: "Media da Turma",
         allowSorting: true,
       },
       {
