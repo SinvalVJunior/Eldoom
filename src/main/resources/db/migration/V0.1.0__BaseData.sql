@@ -61,11 +61,11 @@ INSERT INTO trabalho (id, titulo, conteudo, professorid, turmaid, dataenvio, dat
 
 INSERT INTO trabalho (id, titulo, conteudo, professorid, turmaid, dataenvio, dataavaliacao, nota) VALUES (default, 'Banco de Dados', 'Modelo Objeto-Relacional', 2, 4, '2020-12-02 23:59:48.000000', '2020-12-03 16:40:04.000000', 60.0000);
 
-INSERT INTO trabalho (id, titulo, conteudo, professorid, turmaid, dataenvio, dataavaliacao, nota) VALUES (default, 'Modelagem de Software', 'Metodologia SCRUM', 3, 3, '2020-12-03 23:59:54.000000', '2020-12-13 23:59:26.000000', null);
+INSERT INTO trabalho (id, titulo, conteudo, professorid, turmaid, dataenvio, dataavaliacao, nota) VALUES (default, 'Modelagem de Software', 'Metodologia SCRUM', 3, 3, '2020-12-03 23:59:54.000000', '2020-12-13 23:59:26.000000',57.0000);
 
-INSERT INTO trabalho (id, titulo, conteudo, professorid, turmaid, dataenvio, dataavaliacao, nota) VALUES (default, 'Estruturas de Dados II', 'Arvore B', 4, 2, '2020-12-04 23:59:04.000000', '2020-12-13 23:59:31.000000', null);
+INSERT INTO trabalho (id, titulo, conteudo, professorid, turmaid, dataenvio, dataavaliacao, nota) VALUES (default, 'Estruturas de Dados II', 'Arvore B', 4, 2, '2020-12-04 23:59:04.000000', '2020-12-13 23:59:31.000000', 95.0000);
 
-INSERT INTO trabalho (id, titulo, conteudo, professorid, turmaid, dataenvio, dataavaliacao, nota) VALUES (default, 'Sistemas Operacionais', 'Kernel', 5, 1, '2020-12-05 23:59:08.000000', '2020-12-13 23:59:39.000000', null);
+INSERT INTO trabalho (id, titulo, conteudo, professorid, turmaid, dataenvio, dataavaliacao, nota) VALUES (default, 'Sistemas Operacionais', 'Kernel', 5, 1, '2020-12-05 23:59:08.000000', null, null);
 
 --Inserção Aluno-Turma
 INSERT INTO aluno_turma (alunoid, turmaid, notatotal) VALUES (2, 1, null);
