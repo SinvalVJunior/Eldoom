@@ -1,35 +1,25 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { BaseApiService } from 'src/app/services/base-api.service';
 import { CustomSearchBarDefinition, FieldType } from 'src/app/shared/components/custom-search-bar/models/custom-search-bar.model';
 import { CustomTableDefinition, ColumnDefinition } from 'src/app/shared/components/custom-table/models/custom-table-data.model';
-import { TeacherFilter } from '../models/teacher-filter.model';
-import { Teacher } from '../models/teacher.model';
+import { Work } from '../models/work.model';
 
 @Component({
-  selector: "app-teacher",
-  templateUrl: "./teacher.component.html",
-  styleUrls: ["./teacher.component.scss"],
+  templateUrl: "./work.component.html",
+  styleUrls: ["./work.component.scss"],
 })
-export class TeacherComponent implements OnInit {
+export class WorkComponent implements OnInit {
   tableDefinition: CustomTableDefinition = new CustomTableDefinition({
     columnDefinitions: [
       {
-        name: "id",
-        displayName: "Registro",
-        allowSorting: true,
-      },
-      {
-        name: "nome",
+        name: "alunoNome",
         displayName: "Nome",
         allowSorting: true,
       },
       {
-        name: "dataDeNascimento",
-        displayName: "Data de Nascimento",
+        name: "trabalhoTitulo",
+        displayName: "Titulo",
         allowSorting: true,
-        getValueFunc: (obj: Teacher) => {
-          return new Date(obj.dataNascimento).toLocaleString();
-        },
       },
       {
         name: "Editar",
@@ -55,25 +45,17 @@ export class TeacherComponent implements OnInit {
     paginate: true,
     frontPaginateSort: true,
   });
-  values: Teacher[] = [];
+  values: Work[] = [];
   searchBarDefinition: CustomSearchBarDefinition = new CustomSearchBarDefinition({
     fields: [
-      { name: "Registro", type: FieldType.TEXT, filterName: "id" },
-      {
-        name: "Data de Nascimento",
-        type: FieldType.DATE_RANGE,
-        filterName: "nascimentoDateRange",
-        defaultValue: [
-          new Date(new Date().getFullYear() - 100, 1),
-          new Date(new Date().getFullYear() + 100, 1),
-        ],
-      },
+      { name: "Nome", type: FieldType.TEXT, filterName: "alunoNome" },
+      { name: "Titulo", type: FieldType.TEXT, filterName: "trabalhoTitulo" },
     ],
   });
-  searchBarFilter: TeacherFilter = {};
+  searchBarFilter: object = {};
 
-  constructor(private api: BaseApiService<Teacher>) {
-    api.urlPath = "/api/v1/professor";
+  constructor(private api: BaseApiService<Work>) {
+    api.urlPath = "​/api/v1/trabalho/autores";
   }
 
   getData() {

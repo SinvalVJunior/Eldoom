@@ -65,6 +65,8 @@ export class HttpInterceptorService implements HttpInterceptor {
         ? environment.eldoomApiEndpoint.slice(0, -1)
         : environment.eldoomApiEndpoint;
 
+    console.log(baseUrl, environment.eldoomApiEndpoint);
+
     const apiReq = req.clone({ url: `${baseUrl}${req.url}` });
 
     return next.handle(apiReq).pipe(

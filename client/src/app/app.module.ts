@@ -14,7 +14,6 @@ import { InnerMenuComponent } from "./components/menu/inner-menu/inner-menu.comp
 import { HeaderComponent } from "./components/header/header.component";
 import { HttpInterceptorService } from "./services/http-interceptor.service";
 import { FormsModule } from "@angular/forms";
-import { MonitoringModule } from "./pages/monitoring/monitoring.module";
 import { UserManagementModule } from './pages/user-management/user-management.module';
 import { AcademicSystemModule } from './pages/academic-system/academic-system.module';
 
@@ -35,7 +34,6 @@ registerLocaleData(localePt, "pt");
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MonitoringModule,
     UserManagementModule,
     MaterialModule,
     HttpClientModule,

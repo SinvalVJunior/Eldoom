@@ -1,6 +1,5 @@
 package com.example.demo.api;
 
-
 import com.example.demo.model.Curso;
 import com.example.demo.service.CursoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,10 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Tag( name = "Cursos", description = "API para gerenciamento dos cursos")
-@RequestMapping("api/v1/Curso")
+@RequestMapping("api/v1/curso")
 @RestController
 public class CursoController {
 
