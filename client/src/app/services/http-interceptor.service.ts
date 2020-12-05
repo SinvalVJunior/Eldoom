@@ -33,13 +33,14 @@ export class HttpInterceptorService implements HttpInterceptor {
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let urlCodeChanger: string;
     if (req.url !== "") {
+      console.log("TEST0","-", req.url[0],"-", req.url[1], req.url, req.url.trim()[0]);
       urlCodeChanger = req.url[0];
     }
 
     if (urlCodeChanger === "@") {
       return next.handle(req.clone({ url: req.url.substr(1) }));
     }
-
+console.log("Test",req.url, urlCodeChanger, req.url.length, req.url.trim().length);
     if (urlCodeChanger === "#" || urlCodeChanger !== "/") {
       const noChangeReq = req.clone({ url: req.url.substr(1) });
       return next.handle(noChangeReq).pipe(
@@ -64,6 +65,7 @@ export class HttpInterceptorService implements HttpInterceptor {
       environment.eldoomApiEndpoint.slice(-1) === "/"
         ? environment.eldoomApiEndpoint.slice(0, -1)
         : environment.eldoomApiEndpoint;
+    console.log("Test2", req.url, urlCodeChanger);
 
     console.log(baseUrl, environment.eldoomApiEndpoint);
 
