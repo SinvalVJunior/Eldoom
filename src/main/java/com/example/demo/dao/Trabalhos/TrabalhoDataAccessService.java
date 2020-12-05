@@ -70,13 +70,14 @@ public class TrabalhoDataAccessService implements TrabalhoDAO {
 
     @Override
     public List<TrabalhoAlunoM2MResponse> getTrabalhoAuthors() throws IOException {
-        final String sql = "SELECT a.Nome, t.Titulo FROM Trabalho_Aluno inner join aluno a on a.id = Trabalho_Aluno.AlunoId inner join trabalho t on t.id = Trabalho_Aluno.TrabalhoId;";
+        final String sql = "SELECT a.Nome, t.Titulo, t.Conteudo, t.DataAvaliacao, t.DataEnvio, t.Nota FROM Trabalho_Aluno inner join aluno a on a.id = Trabalho_Aluno.AlunoId inner join trabalho t on t.id = Trabalho_Aluno.TrabalhoId;";
         List<TrabalhoAlunoM2MResponse> trabalhoAlunoList = jdbcTemplate.query(sql, (resultSet, i) -> {
             String alunoNome = resultSet.getString("nome");
             String trabalhoTitulo = resultSet.getString("titulo");
-
-
-            return new TrabalhoAlunoM2MResponse(alunoNome, trabalhoTitulo);
+            Date dataEnvio = resultSet.getDate("dataEnvio");
+            Date DataAvaliacao = resultSet.getDate("dataAvaliacao");;
+            float nota = resultSet.getFloat("nota");
+            return new TrabalhoAlunoM2MResponse(alunoNome, trabalhoTitulo, dataEnvio, DataAvaliacao, nota);
         });
         return trabalhoAlunoList;
     }
