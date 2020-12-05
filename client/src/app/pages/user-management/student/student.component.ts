@@ -34,15 +34,15 @@ export class StudentComponent implements OnInit {
         displayName: "Data de Matricula",
         allowSorting: true,
         getValueFunc: (obj: Student) => {
-          return new Date(obj.dataDeMatricula).toLocaleString();
+          return new Date(obj.dataMatricula).toLocaleString();
         },
       },
       {
         name: "dataDeNascimento",
         displayName: "Data de Nascimento",
         allowSorting: true,
-        getValueFunc: (obj) => {
-          return new Date(obj.dataDeMatricula).toLocaleString();
+        getValueFunc: (obj: Student) => {
+          return new Date(obj.dataNascimento).toLocaleString();
         },
       },
       {

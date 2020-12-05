@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 
 @Tag( name = "Disciplinas", description = "API para gerenciamento das disciplinas")
-@RequestMapping("api/v1/Disciplina")
+@RequestMapping("api/v1/disciplina")
 @RestController
 public class DisciplinaController {
 

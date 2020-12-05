@@ -6,8 +6,8 @@ app:
     password: admin
     pool-size: 10
     connectionTimeout: 60000 
-    idleTimeout: 300000 
-    maxLifetime: 1800000 
+    idleTimeout: 120000 
+    maxLifetime: 300000
 
 server:
   port : 80
